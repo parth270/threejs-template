@@ -1,8 +1,9 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+import React, { Suspense } from "react";
 import * as THREE from "three";
-import Cylinder from "./cylinder/index";
+import Effects from "./effect/effect";
+import Ground from "./ground/ground";
 import Ring from "./thetaRing/ring";
 const Container = () => {
   const [devicePixelRatio, setDevicePixelRatio] = React.useState();
@@ -22,16 +23,21 @@ const Container = () => {
       }}
       style={{ width: "100%", height: "100vh" }}
     >
-      <pointLight position={[0, 4, 0]} intensity={0.4} color="white" />
-      <ambientLight intensity={0.7} />
-      <Ring id={1} i={1} />
-      <Ring id={2} i={2} />
-      <Ring id={3} i={3} />
-      <Ring id={4} i={4} />
-      <Ring id={1} i={5} />
-      <Ring id={2} i={6} />
-      <Ring id={3} i={7} />
-      <Ring id={4} i={8} />
+      <color attach="background" args={["#3b082c"]} />
+      <fog color="#3b082c" attach="fog" near={8} far={30} />
+      <ambientLight intensity={0.5} />
+      <spotLight position={[0, 10, 0]} intensity={0.3} />
+      <Suspense fallback={null}>
+        <Ring id={1} i={1} />
+        <Ring id={2} i={2} />
+        <Ring id={3} i={3} />
+        <Ring id={4} i={4} />
+        <Ring id={1} i={5} />
+        <Ring id={2} i={6} />
+        <Ring id={3} i={7} />
+        <Ring id={4} i={8} />
+      </Suspense>
+      {/* <Ground /> */}
       <OrbitControls maxDistance={100} minDistance={5} />
     </Canvas>
   );

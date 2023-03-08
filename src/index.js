@@ -1,25 +1,26 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./layouts/Home";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
+import Loader from "./components/loader";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Suspense fallback={<Loader/>}>
+        <App />
+      </Suspense>
+    ),
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store} >
-
-  <Home>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </Home>
   </Provider>
 );

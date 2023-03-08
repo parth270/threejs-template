@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Suspense } from "react";
+import CanvasContainer from "./components/three/Container";
 
-function App() {
+const App = (props) => {
   return (
-    <div className='w-[100%] h-[100vh] flex items-center justify-center' >
-      <h1>
-      Hello Nicolas!
-      </h1>
-    </div>
+    <>
+      <div className="w-[100%] min-h-[100vh] bg-[#3b082c]  z-20">
+        <Suspense fallback={<></>}>
+          <CanvasContainer />
+        </Suspense>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
