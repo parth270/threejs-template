@@ -29,7 +29,7 @@ const Cylinder = (props) => {
   return (
     <>
       <mesh position={[0, 0.003, 0]} geometry={geometry1}>
-        <meshPhongMaterial color={"#000"} toneMapped={false} />
+        <meshStandardMaterial color={"#000"} toneMapped={false}  />
       </mesh>
       <>
       <mesh position={[0, 0.003, 0]} geometry={geometry2}>

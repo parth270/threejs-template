@@ -19,6 +19,7 @@ const Cylinder = (props) => {
   console.log(texture);
   return (
     <mesh
+    castShadow
       position={[0, 0.009, 0]}
       geometry={geometry1}
       rotation={[
@@ -29,8 +30,8 @@ const Cylinder = (props) => {
     >
       <Suspense fallback={null}>
         <meshPhongMaterial
-          color={"#ccc"}
           map={texture}
+          color={"#fff"}
           side={THREE.DoubleSide}
           toneMapped={false}
         />

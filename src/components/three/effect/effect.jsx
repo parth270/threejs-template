@@ -4,7 +4,9 @@ import React from 'react';
 const Effects=()=>{
     return(
         <EffectComposer multisampling={0} >
-            <Vignette offset={0.3} darkness={0.8} />
+            {/* <Vignette offset={0.3} darkness={0.8} /> */}
+            {/* <Bloom  /> */}
+            <Bloom luminanceThreshold={1} />
       </EffectComposer>
     )
 }
