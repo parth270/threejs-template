@@ -35,7 +35,7 @@ const Scene = () => {
         <Cylinder/>
       </Suspense>
       <Ground />
-      <OrbitControls maxDistance={10} minDistance={6} minPolarAngle={0} maxPolarAngle={Math.PI/2} />
+      <OrbitControls maxDistance={10} minDistance={6} minPolarAngle={Math.PI/4} maxPolarAngle={Math.PI/2} />
     </>
   );
 };
