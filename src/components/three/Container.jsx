@@ -20,7 +20,7 @@ const Scene = () => {
       <color attach="background" args={["#2b0032"]} />
       <fog color="#2b0032" attach="fog" near={8} far={30} />
        {/* <ambientLight intensity={0.2} />  */}
-       <directionalLight position={[0,4,-4]} castShadow intensity={0.9} />
+       <directionalLight position={[0,4,-4]} castShadow intensity={0.9}  />
        <directionalLight position={[4,4,4]} castShadow intensity={0.9} />
        <directionalLight position={[-4,4,4]} castShadow intensity={0.9} />
       <Suspense fallback={null}>
@@ -35,7 +35,7 @@ const Scene = () => {
         <Cylinder/>
       </Suspense>
       <Ground />
-      <OrbitControls maxDistance={100} minDistance={5} minPolarAngle={0} maxPolarAngle={Math.PI/2} />
+      <OrbitControls maxDistance={10} minDistance={6} minPolarAngle={0} maxPolarAngle={Math.PI/2} />
     </>
   );
 };
@@ -51,7 +51,7 @@ const Container = () => {
     <Canvas
       camera={{ position: [0, 3, 10], fov: 65 }}
       dpr={devicePixelRatio}
-      gl={{ antialias: false }}
+      gl={{ antialias: false,powerPreference:"high-performance"}}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.outputEncoding = THREE.sRGBEncoding;
