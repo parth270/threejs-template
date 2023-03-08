@@ -38,7 +38,7 @@ const Container = () => {
   }, []);
   return (
     <Canvas
-      camera={{ position: [0, 0, 0], fov: 65 }}
+      camera={{ position: [0, 0, 10], fov: 65 }}
       dpr={devicePixelRatio}
       gl={{ antialias: false }}
       onCreated={({ gl }) => {
