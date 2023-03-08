@@ -16,13 +16,13 @@ const Scene = () => {
   return (
     <>
     <Perf position="top-left"/>
-      <Effects/>
       <color attach="background" args={["#2b0032"]} />
       <fog color="#2b0032" attach="fog" near={8} far={30} />
        {/* <ambientLight intensity={0.2} />  */}
-       <directionalLight position={[0,4,-4]} castShadow intensity={0.9}  />
+       {/* <directionalLight position={[0,4,-4]} castShadow intensity={0.9}  />
        <directionalLight position={[4,4,4]} castShadow intensity={0.9} />
-       <directionalLight position={[-4,4,4]} castShadow intensity={0.9} />
+       <directionalLight position={[-4,4,4]} castShadow intensity={0.9} /> */}
+       <hemisphereLight intensity={0.5} />
       <Suspense fallback={null}>
         <Ring id={1} i={1} />
         <Ring id={2} i={2} />

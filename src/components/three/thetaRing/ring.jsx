@@ -5,6 +5,7 @@ import * as THREE from "three";
 const Cylinder = (props) => {
   const texture = useVideoTexture(`/video (${props.id}).mp4`);
   texture.name = `video-${props.i}`;
+  texture.encoding = THREE.sRGBEncoding;
   const totalRadius = 6.283185307179586;
   const geometry1 = new THREE.CylinderGeometry(
     4,
@@ -29,9 +30,8 @@ const Cylinder = (props) => {
       ]}
     >
       <Suspense fallback={null}>
-        <meshPhongMaterial
+        <meshBasicMaterial
           map={texture}
-          color={"#fff"}
           side={THREE.DoubleSide}
           toneMapped={false}
         />
