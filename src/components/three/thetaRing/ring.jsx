@@ -10,16 +10,16 @@ const Cylinder = (props) => {
     4,
     4,
     2,
-    30,
+    180,
     true,
     0,
     0,
-    totalRadius / 8
+    totalRadius / (8*1.003)
   );
   console.log(texture);
   return (
     <mesh
-      position={[0, 0, 0]}
+      position={[0, 0.009, 0]}
       geometry={geometry1}
       rotation={[
         0 * THREE.MathUtils.DEG2RAD,

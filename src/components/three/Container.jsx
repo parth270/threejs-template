@@ -1,14 +1,18 @@
 import { OrbitControls, PresentationControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { Perf } from "r3f-perf";
 import React, { Suspense } from "react";
 import * as THREE from "three";
 import Effects from "./effect/effect";
 import Ground from "./ground/ground";
+import Cylinder from "./thetaRing/outerRing";
 import Ring from "./thetaRing/ring";
 
 const Scene = () => {
   return (
     <>
+    <Perf position="top-left"/>
+      <Effects/>
       <color attach="background" args={["#2b0032"]} />
       <fog color="#2b0032" attach="fog" near={8} far={30} />
       <ambientLight intensity={0.5} />
@@ -22,6 +26,7 @@ const Scene = () => {
         <Ring id={2} i={6} />
         <Ring id={3} i={7} />
         <Ring id={4} i={8} />
+        <Cylinder/>
       </Suspense>
       <Ground />
       <OrbitControls maxDistance={100} minDistance={5} minPolarAngle={0} maxPolarAngle={Math.PI/2} />
@@ -38,7 +43,7 @@ const Container = () => {
   }, []);
   return (
     <Canvas
-      camera={{ position: [0, 0, 10], fov: 65 }}
+      camera={{ position: [0, 3, 10], fov: 65 }}
       dpr={devicePixelRatio}
       gl={{ antialias: false }}
       onCreated={({ gl }) => {
