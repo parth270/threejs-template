@@ -1,13 +1,9 @@
 import {
-  Bloom,
   DepthOfField,
   EffectComposer,
   Noise,
-  Outline,
-  SSR,
   Vignette,
 } from "@react-three/postprocessing";
-import { useControls } from "leva";
 import React from "react";
 
 const Effects = () => {

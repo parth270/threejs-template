@@ -1,7 +1,7 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense,useRef } from "react";
 import { useVideoTexture } from "@react-three/drei";
 import * as THREE from "three";
-import gsap, { Back, Power4 } from "gsap";
+import gsap, { Power4 } from "gsap";
 
 const Cylinder = (props) => {
   const texture = useVideoTexture(`/video (${props.id}).mp4`);

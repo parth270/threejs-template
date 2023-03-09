@@ -1,18 +1,13 @@
 import {
-  OrbitControls,
-  PresentationControls,
-  useHelper,
+  OrbitControls
 } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Perf } from "r3f-perf";
 import React, { Suspense, useRef } from "react";
 import * as THREE from "three";
-import { CameraHelper, DirectionalLightHelper } from "three";
 import Effects from "./effect/effect";
 import Ground from "./ground/ground";
 import Cylinder from "./thetaRing/outerRing";
 import Ring from "./thetaRing/ring";
-import { Environment } from "@react-three/drei";
 import useMouse from "../../hooks/useMouse";
 
 const Rig = (props) => {
@@ -22,6 +17,8 @@ const Rig = (props) => {
     ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (mouse.x * Math.PI) / 20, 0.01)
     ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, -(mouse.y * Math.PI) / 20, 0.01)
   });
+
+
 
   return <group {...props} ref={ref} />;
 };

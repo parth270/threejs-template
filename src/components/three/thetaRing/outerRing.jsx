@@ -1,5 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
-import { useVideoTexture } from "@react-three/drei";
+import React from "react";
 import * as THREE from "three";
 
 const Cylinder = (props) => {

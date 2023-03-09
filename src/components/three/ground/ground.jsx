@@ -1,10 +1,8 @@
 import React from "react";
 import {
   MeshReflectorMaterial,
-  Reflector,
   useTexture,
 } from "@react-three/drei";
-import * as THREE from "three";
 
 const Ground = () => {
   const [floor, normal] = useTexture([
