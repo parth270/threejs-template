@@ -9,10 +9,21 @@ const App = (props) => {
         <div className="w-[100%] flex h-[100vh] p-[50px] ">
           <div className="w-[60%] ">
             <div className="w-[100%] mb-[-20px] opacity-[0.2] border-t-[1px] border-[#ccc] border-l-[1px] h-[20px]" />
-            <div className="p-[20px] mt-[-30px]">
+            <div className="p-[20px] mt-[-30px] h-[100%] w-[100%] flex flex-col justify-between">
               <h1 className="text-white text-[20px] font-mono">
                 Motleycrowd - LIVE
               </h1>
+              <div className="w-[284px]">
+                <h4 className="text-[14px] font-bold text-white font-mono tracking-widest uppercase">
+                  more about us <span className="text-[#cb5ce3]" >{">"}</span>
+                </h4>
+                <p className="text-[13.5px] leading-[23px] mt-[40px] text-[#919191] tracking-wider " >
+                  Motley Crowd is a joint project from<span className="text-white tracking-[1px]" > Hello Monday, Dogstudio </span>
+                   and <span className="text-white tracking-[1px]">Set Snail</span>, born from friendships and mutual interests for
+                  the fast-paced evolution of immersive events in the digital
+                  world.<span className="text-white" > Contact us!</span> 
+                </p>
+              </div>
             </div>
           </div>
           <div className="w-[40%] ">

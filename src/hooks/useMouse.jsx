@@ -6,8 +6,8 @@ const useMouse=()=>{
 
     React.useEffect(()=>{
         window.addEventListener("mousemove", (e) => {
-            setX(e.clientX);
-            setY(e.clientY);
+            setX((e.clientX/window.innerWidth)*2-1);
+            setY(-(e.clientY/window.innerHeight)*2+1);
           });
     },[])
 

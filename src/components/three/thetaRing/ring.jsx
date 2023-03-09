@@ -1,6 +1,7 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useVideoTexture } from "@react-three/drei";
 import * as THREE from "three";
+import gsap, { Back, Power4 } from "gsap";
 
 const Cylinder = (props) => {
   const texture = useVideoTexture(`/video (${props.id}).mp4`);
@@ -17,9 +18,21 @@ const Cylinder = (props) => {
     0,
     totalRadius / (8*1.003)
   );
-  console.log(texture);
+  const ref = useRef();
+
+  React.useEffect(()=>{
+    if(!ref.current) return;
+    gsap.to(ref.current.rotation, {
+      y: ref.current.rotation.y+Math.PI,
+      ease: Power4.easeInOut,
+      duration: 4
+    });
+  })
+
+  
   return (
     <mesh
+    ref={ref}
     castShadow
       position={[0, 0.009, 0]}
       geometry={geometry1}
