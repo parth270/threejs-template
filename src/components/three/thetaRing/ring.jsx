@@ -16,24 +16,32 @@ const Cylinder = (props) => {
     true,
     0,
     0,
-    totalRadius / (8*1.003)
+    totalRadius / (8 * 1.003)
   );
   const ref = useRef();
 
-  React.useEffect(()=>{
-    if(!ref.current) return;
-    gsap.to(ref.current.rotation, {
-      y: ref.current.rotation.y+Math.PI,
-      ease: Power4.easeInOut,
-      duration: 4
-    });
-  })
+  React.useEffect(() => {
+    if (!ref.current) return;
+    setTimeout(() => {
+      gsap.to(ref.current.rotation, {
+        y: ref.current.rotation.y + Math.PI*4/3,
+        ease: Power4.easeInOut,
+        duration: 4,
+      });
+    }, 500);
+    setInterval(() => {
+      gsap.to(ref.current.rotation, {
+        y: ref.current.rotation.y + (45 * THREE.MathUtils.DEG2RAD),
+        ease: Power4.easeInOut,
+        duration: 4,
+      });
+    }, 10000);
+  });
 
-  
   return (
     <mesh
-    ref={ref}
-    castShadow
+      ref={ref}
+      castShadow
       position={[0, 0.009, 0]}
       geometry={geometry1}
       rotation={[
@@ -44,7 +52,6 @@ const Cylinder = (props) => {
     >
       <Suspense fallback={null}>
         <meshBasicMaterial
-    
           map={texture}
           side={THREE.DoubleSide}
           toneMapped={false}
