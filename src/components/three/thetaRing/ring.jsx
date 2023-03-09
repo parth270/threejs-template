@@ -31,6 +31,7 @@ const Cylinder = (props) => {
     >
       <Suspense fallback={null}>
         <meshBasicMaterial
+    
           map={texture}
           side={THREE.DoubleSide}
           toneMapped={false}

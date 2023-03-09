@@ -1,4 +1,8 @@
-import { OrbitControls, PresentationControls, useHelper } from "@react-three/drei";
+import {
+  OrbitControls,
+  PresentationControls,
+  useHelper,
+} from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Perf } from "r3f-perf";
 import React, { Suspense } from "react";
@@ -11,31 +15,40 @@ import Ring from "./thetaRing/ring";
 import { Environment } from "@react-three/drei";
 
 const Scene = () => {
-    const three = useThree();
-
+  const three = useThree();
+  React.useEffect(() => {
+    const camera = three.camera;
+    camera.lookAt(3, 0, 0);
+  });
   return (
     <>
-    <Perf position="top-left"/>
       <color attach="background" args={["#2b0032"]} />
-      <fog color="#2b0032" attach="fog" near={8} far={30} />
-       {/* <ambientLight intensity={0.2} />  */}
-       {/* <directionalLight position={[0,4,-4]} castShadow intensity={0.9}  />
-       <directionalLight position={[4,4,4]} castShadow intensity={0.9} />
-       <directionalLight position={[-4,4,4]} castShadow intensity={0.9} /> */}
-       <hemisphereLight intensity={0.5} />
+      <fog color="#2b0032" attach="fog" near={1} far={30} />
+      <Effects />
+      <hemisphereLight intensity={0.1} />
+      <pointLight position={[0, 0.5, 0]} intensity={0.7} color={"#fff"} castShadow />
       <Suspense fallback={null}>
-        <Ring id={1} i={1} />
-        <Ring id={2} i={2} />
-        <Ring id={3} i={3} />
-        <Ring id={4} i={4} />
-        <Ring id={1} i={5} />
-        <Ring id={2} i={6} />
-        <Ring id={3} i={7} />
-        <Ring id={4} i={8} />
-        <Cylinder/>
+        <group position={[0, 0, 0]} rotation={[0,Math.PI*0.12/2,0]} >
+          <Ring id={1} i={1} />
+          <Ring id={2} i={2} />
+          <Ring id={3} i={3} />
+          <Ring id={4} i={4} />
+          <Ring id={1} i={5} />
+          <Ring id={2} i={6} />
+          <Ring id={3} i={7} />
+          <Ring id={4} i={8} />
+          <Cylinder />
+          <Ground />
+        </group>
       </Suspense>
-      <Ground />
-      <OrbitControls maxDistance={10} minDistance={6} minPolarAngle={Math.PI/4} maxPolarAngle={Math.PI/2} />
+      <OrbitControls
+        maxDistance={10}
+        minDistance={6}
+        target={new THREE.Vector3(3, 0, 0)}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI / 2}
+        enabled={false}
+      />
     </>
   );
 };
@@ -48,19 +61,23 @@ const Container = () => {
     setDevicePixelRatio(pixel);
   }, []);
   return (
+    <div className="absolute w-[100%] h-[100vh]" >
+
     <Canvas
-      camera={{ position: [0, 3, 10], fov: 65 }}
+      camera={{ position: [5, 2.2, 7.5], fov: 65 }}
       dpr={devicePixelRatio}
-      gl={{ antialias: false,powerPreference:"high-performance"}}
+      gl={{ antialias: false, powerPreference: "high-performance" }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.outputEncoding = THREE.sRGBEncoding;
       }}
       style={{ width: "100%", height: "100vh" }}
-    ><Suspense fallback={null} >
-        <Scene/>
-    </Suspense>
+    >
+      <Suspense fallback={null}>
+        <Scene />
+      </Suspense>
     </Canvas>
+      </div>
   );
 };
 

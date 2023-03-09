@@ -6,12 +6,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
 import Loader from "./components/loader";
-
+import CanvasContainer from './components/three/Container'
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <Suspense fallback={<Loader/>}>
+          <CanvasContainer />
         <App />
       </Suspense>
     ),
