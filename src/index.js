@@ -10,6 +10,7 @@ import CanvasContainer from "./components/three/Container";
 import HomeLayout from "./components/layouts/Home";
 import Home from "./routes";
 import Slider from "./routes/Slider";
+import Pages from "./routes/Pages";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,7 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/Home",
     element: <Slider/>,
-  },
+  },{
+    path:"/Home/:id",
+    element:<Pages/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

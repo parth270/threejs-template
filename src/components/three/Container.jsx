@@ -12,6 +12,50 @@ import gsap, { Power4 } from "gsap";
 import { Clock } from "three";
 import { initiateRef } from "../../services/three";
 import { useLocation } from "react-router-dom";
+
+const pages = [
+  {
+    id: 0,
+    theme: "#e376e2",
+    back: "#2b0032",
+  },
+  {
+    id: 1,
+    theme: "#e376e2",
+    back: "#e376e2",
+  },
+  {
+    id: 2,
+    theme: "#ee913e",
+    back: "#ee913e",
+  },
+  {
+    id: 3,
+    theme: "#ee913e",
+    back: "#ee913e",
+  },
+  {
+    id: 4,
+    theme: "#dacf20",
+    back: "#dacf20",
+  },
+  {
+    id: 5,
+    theme: "#568694",
+    back: "#568694",
+  },
+  {
+    id: 6,
+    theme: "#429ae8",
+    back: "#429ae8",
+  },
+  {
+    id: 7,
+    theme: "#e24c4a",
+    back: "#e24c4a",
+  },
+];
+
 const Rig = (props) => {
   const ref = useRef();
   const mouse = useMouse();
@@ -21,11 +65,12 @@ const Rig = (props) => {
   const three = useThree();
   const startingPos = new THREE.Vector3(0, 1.8, 7.5);
   const midPos = new THREE.Vector3(0, 1.6, 6);
-  const endPos = new THREE.Vector3(0, 1.25, 6);
+  const endPos = new THREE.Vector3(0, 1.125, 5.5);
+  const topPos = new THREE.Vector3(0,10,0);
   const dispatch = useDispatch();
   const camera = three.camera;
   React.useEffect(() => {
-    if (menu.route==="Slider") {
+    if (menu.route === "Slider") {
       gsap.to(camera.position, {
         x: endPos.x,
         y: endPos.y,
@@ -41,20 +86,23 @@ const Rig = (props) => {
         ease: Power4.easeInOut,
       });
       gsap.to(ref.current.rotation, {
-        x: -Math.PI/18,
+        x: -Math.PI / 18,
         y: 0,
         z: 0,
         duration: 1,
-        delay:0.5,
+        delay: 0.25,
         ease: Power4.easeInOut,
       });
-    } else if(menu.route==="Home"){
+    } else if (menu.route === "Home") {
       if (starting) {
         gsap.to(camera.position, {
           x: startingPos.x,
           y: startingPos.y,
           z: startingPos.z,
           duration: 2,
+          onUpdate:(e)=>{
+            console.log("check it only here" ,e)
+          },
           ease: Power4.easeInOut,
         });
         gsap.to(ref.current.position, {
@@ -75,19 +123,46 @@ const Rig = (props) => {
     }
     setStarting(true);
   }, [menu.route]);
-  console.log(menu.route,"please check hhere!")
+
   React.useEffect(()=>{
-    if(menu.route==="Slider"){
+      if(menu.page!==null){
+        gsap.to(camera.position, {
+          x: topPos.x,
+          y: topPos.y,
+          z: topPos.z,
+          duration: 2,
+          onUpdate:(e)=>{
+            console.log("check it only here" ,e)
+          },
+          ease: Power4.easeInOut,
+        });
+      }else{
+        gsap.to(camera.position, {
+          x: startingPos.x,
+          y: startingPos.y,
+          z: startingPos.z,
+          duration: 2,
+          onUpdate:(e)=>{
+            console.log("check it only here" ,e)
+          },
+          ease: Power4.easeInOut,
+        });
+      }
+  },[menu.page])
+  console.log(menu.route, "please check hhere!");
+  React.useEffect(() => {
+    if (menu.route === "Slider") {
       gsap.to(ref.current.rotation, {
-        x: -Math.PI/18,
+        x: -Math.PI / 18,
         y: menu.rotation,
         z: 0,
         duration: 1,
         ease: Power4.easeInOut,
       });
-      console.log((menu.rotation+1)*(Math.PI/8));
+      console.log((menu.rotation + 1) * (Math.PI / 8));
     }
-  },[menu.rotation])
+  }, [menu.rotation]);
+
 
   useFrame(() => {
     if (!menu.menuOpen) {
@@ -104,18 +179,18 @@ const Rig = (props) => {
     }
   });
 
-  React.useEffect(()=>{
-
-  })
-
-  return <group {...props} ref={ref} />;
+  return (
+    <>
+      <group {...props} ref={ref} />
+      <color attach="background" args={[pages[0].back]} />
+      <fog color={pages[0].back} attach="fog" near={1} far={30} />
+    </>
+  );
 };
 
 const Scene = () => {
   return (
     <>
-      <color attach="background" args={["#2b0032"]} />
-      <fog color="#2b0032" attach="fog" near={1} far={30} />
       <Effects />
       <hemisphereLight intensity={0.1} />
       <pointLight

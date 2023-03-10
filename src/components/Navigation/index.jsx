@@ -1,7 +1,7 @@
 import React from "react";
 import { Tween } from "react-gsap";
 import { useDispatch } from "react-redux";
-import { changeRotation } from "../../services/three";
+import { changeRotation, currentVid } from "../../services/three";
 
 const Navigation = ({ current, route }) => {
   console.log(current, route);
@@ -48,15 +48,12 @@ const Navigation = ({ current, route }) => {
     },
   ];
 
-
-  const [selected,setSelected] = React.useState(0);
+  const [selected, setSelected] = React.useState(0);
   const dispatch = useDispatch();
-  React.useEffect(()=>{
-    if(route==="Slider"){
-        const angle=-((selected+1)*(Math.PI/4)+Math.PI/8)
-        dispatch(changeRotation(angle));
-    }
-},[selected,route]);
+  React.useEffect(() => {
+      dispatch(currentVid(selected));
+  }, [selected]);
+
 
   return (
     <Tween
@@ -70,7 +67,11 @@ const Navigation = ({ current, route }) => {
       }}
       delay={0.5}
     >
-      <div className="w-[100%] h-[40px] absolute flex items-center justify-center  bottom-[40px] left-[0] text-white">
+      <div className="w-[100%] h-[40px] absolute flex items-center justify-center  bottom-[40px] left-[0] text-white"
+        style={{
+            zIndex:"120"
+        }}
+      >
         <p
           className={`text-white text-[25px] h-[18px] uppercase leading-[18px] font-[800] font-mono mr-[20px] mt-[-1px] cursor-pointer `}
         >
@@ -79,12 +80,14 @@ const Navigation = ({ current, route }) => {
         {titles.map((item, i) => {
           return (
             <p
-              className={`text-[16px] tracking-[2px] ${selected===i?"text-white":"text-[#ccc]"} h-[18px] uppercase leading-[18px] font-medium cursor-pointer font-mono ${
+              className={`text-[16px] tracking-[2px] ${
+                selected === i ? "text-white" : "text-[#ccc]"
+              } h-[18px] uppercase leading-[18px] font-medium cursor-pointer font-mono ${
                 i === 0
                   ? ""
                   : "border-l-[2px] border-[#fff] ml-[20px] pl-[20px]"
               }  `}
-              onClick={()=>{
+              onClick={() => {
                 setSelected(i);
               }}
             >

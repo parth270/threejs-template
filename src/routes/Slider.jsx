@@ -14,17 +14,23 @@ const Slider = () => {
     if (starting) {
       console.log(state);
       if (state.route === "Slider") {
-        router("Home");
+        if(state.page===null){
+            router("Home");
+        } 
       } else if (state.route === "Home") {
         router("/");
       }
     }
-
     setStarting(true);
-  }, [state.route]);
+  }, [state.route,state.page]);
 
   React.useEffect(()=>{
+    if(state.page!==null){
+        router(`/Home/${state.page}`)
+    }
+  },[state.page])
 
+  React.useEffect(()=>{
     if(state.route==="Home"){
         router("/")
     }

@@ -3,17 +3,61 @@ import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
 import Navigation from "./components/Navigation";
 import {
+  changePage,
   changeRotation,
   closeMenu,
   openMenu,
   setRoute,
 } from "./services/three";
 
+const pages = [
+  {
+    id:0,
+    theme:"#e376e2",
+    back:"#2b0032"
+  },
+  {
+    id:1,
+    theme:"#e376e2",
+    back:"#e376e2"
+  },
+  {
+    id:2,
+    theme:"#ee913e",
+    back:"#ee913e",
+  },
+  {
+    id:3,
+    theme:"#ee913e",
+    back:"#ee913e",
+  },
+  {
+    id:4,
+    theme:"#dacf20",
+    back:"#dacf20",
+  },
+  {
+    id:5,
+    theme:"#568694",
+    back:"#568694"
+  },
+  {
+    id:6,
+    theme:"#429ae8",
+    back:"#429ae8",
+  },
+  {
+    id:7,
+    theme:"#e24c4a",
+    back:"#e24c4a",
+  },
+]
 const App = (props) => {
   const [watch, setWatch] = React.useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.three);
   const [route, setRoutes1] = React.useState("Home");
+  const [route1, setRoutes2] = React.useState("Home");
   const [intialWait, setInitialWait] = React.useState(false);
 
   React.useEffect(() => {
@@ -27,12 +71,25 @@ const App = (props) => {
       setTimeout(() => {
         setRoutes1("Slider");
       }, 1000);
+      setTimeout(() => {
+        setRoutes2("Slider");
+      }, 500);
     } else if (state.route === "Home") {
       setTimeout(() => {
         setRoutes1("Home");
       }, 1000);
+      setTimeout(() => {
+        setRoutes2("Home");
+      }, 500);
     }
   }, [state.route]);
+
+  const theme = {
+    color:pages[state.current].theme
+  }
+
+  console.log(state.current,theme);
+
   console.log(route, "please check here");
   return (
     <>
@@ -57,7 +114,7 @@ const App = (props) => {
                     transform: "translateY(0px)",
                   }}
                   to={{
-                    opacity: state.route === "Slider" ? 1 : 0,
+                    opacity: state.route === "Slider" ?state.page===null? 1:0 : 0,
                     transform:
                       state.route !== "Home"
                         ? "translateY(-35px)"
@@ -69,8 +126,17 @@ const App = (props) => {
                     <h1 className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]">
                       A Virtual Open Days event featuring12 academic islands
                     </h1>
-                    <div className="w-[180px] cursor-pointer flex items-center justify-between pt-[20px] text-[#d9975b] text-[16px] mt-[60px] border-t-[2px] border-[#d9975b]">
-                      <p className="w-[120px]">SDU Open Days</p>
+                    <div className={`w-[180px] cursor-pointer duration-1000 flex items-center justify-between pt-[20px]  text-[16px] mt-[30px] border-t-[2px] `}
+                      style={{
+                        color:theme.color,
+                        borderColor:theme.color
+                      }}
+                      onClick={()=>{
+                        console.log("page is loading");
+                        dispatch(changePage(1));
+                      }}
+                    >
+                      <p className="w-[140px] font-medium tracking-wider ">SDU Open Days</p>
                       <p>{">"}</p>
                     </div>
                   </div>
@@ -190,7 +256,7 @@ const App = (props) => {
           <span className="text-[#cb5ce3] font-bold ">PLAY</span> {">"} 0:57
         </p>
       )}
-      <Navigation route={route} current={state.route} />
+      {route1 === "Slider" && <Navigation route={route} current={state.route} />}
     </>
   );
 };
