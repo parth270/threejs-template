@@ -6,22 +6,26 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
 import Loader from "./components/loader";
-import CanvasContainer from './components/three/Container'
+import CanvasContainer from "./components/three/Container";
+import HomeLayout from "./components/layouts/Home";
+import Home from "./routes";
+import Slider from "./routes/Slider";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<Loader/>}>
-          <CanvasContainer />
-        <App />
-      </Suspense>
-    ),
+    element: <Home />,
+  },
+  {
+    path: "/Home",
+    element: <Slider/>,
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <HomeLayout>
+      <RouterProvider router={router} />
+    </HomeLayout>
   </Provider>
 );

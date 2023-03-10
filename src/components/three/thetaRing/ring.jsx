@@ -1,7 +1,9 @@
-import React, { Suspense,useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { useVideoTexture } from "@react-three/drei";
 import * as THREE from "three";
 import gsap, { Power4 } from "gsap";
+import { useDispatch, useSelector } from "react-redux";
+import { initiateRef } from "../../../services/three";
 
 const Cylinder = (props) => {
   const texture = useVideoTexture(`/video (${props.id}).mp4`);
@@ -19,24 +21,41 @@ const Cylinder = (props) => {
     totalRadius / (8 * 1.003)
   );
   const ref = useRef();
-
+  // const menuOpen = useSelector((state) => state.three);
+  const dispatch = useDispatch();
   React.useEffect(() => {
     if (!ref.current) return;
-    setTimeout(() => {
-      gsap.to(ref.current.rotation, {
-        y: ref.current.rotation.y + Math.PI*4/3,
-        ease: Power4.easeInOut,
-        duration: 4,
-      });
-    }, 500);
-    setInterval(() => {
-      gsap.to(ref.current.rotation, {
-        y: ref.current.rotation.y + (45 * THREE.MathUtils.DEG2RAD),
-        ease: Power4.easeInOut,
-        duration: 4,
-      });
-    }, 10000);
+    gsap.to(ref.current.rotation, {
+      y: ref.current.rotation.y + (Math.PI * 2),
+      ease: Power4.easeInOut,
+      duration: 4,
+      delay: 0.5,
+    });
   });
+  // const state = useSelector(state=>state.three);
+  // React.useEffect(()=>{
+  //   if(state.route==="Slider"){
+  //     gsap.to(ref.current.rotation, {
+  //       y:ref.current.rotation.y+(-Math.PI*2.2/18),
+  //       ease: Power4.easeInOut,
+  //       duration: 4,
+  //       delay: 0.5,
+  //     });
+  //   }
+  // },[state.route]);
+  // React.useEffect(() => {
+  //   if (menuOpen) {
+  //     clearTimeout(intervals);
+  //   } else {
+  //     intervals = setInterval(() => {
+  //       gsap.to(ref.current.rotation, {
+  //         y: ref.current.rotation.y + 45 * THREE.MathUtils.DEG2RAD,
+  //         ease: Power4.easeInOut,
+  //         duration: 4,
+  //       });
+  //     }, 10000);
+  //   }
+  // }, [menuOpen]);
 
   return (
     <mesh
@@ -49,6 +68,9 @@ const Cylinder = (props) => {
         Number(props.i) * 45 * THREE.MathUtils.DEG2RAD,
         0 * THREE.MathUtils.DEG2RAD,
       ]}
+      onClick={()=>{
+        console.log(props.i)
+      }}
     >
       <Suspense fallback={null}>
         <meshBasicMaterial
