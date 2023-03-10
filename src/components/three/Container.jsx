@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import gsap, { Power4 } from "gsap";
 import { Clock } from "three";
 import { initiateRef } from "../../services/three";
+import { useLocation } from "react-router-dom";
 const Rig = (props) => {
   const ref = useRef();
   const mouse = useMouse();
@@ -43,7 +44,8 @@ const Rig = (props) => {
         x: -Math.PI/18,
         y: 0,
         z: 0,
-        duration: 2,
+        duration: 1,
+        delay:0.5,
         ease: Power4.easeInOut,
       });
     } else if(menu.route==="Home"){
@@ -74,14 +76,13 @@ const Rig = (props) => {
     setStarting(true);
   }, [menu.route]);
   console.log(menu.route,"please check hhere!")
-  
   React.useEffect(()=>{
     if(menu.route==="Slider"){
       gsap.to(ref.current.rotation, {
         x: -Math.PI/18,
-        y: (menu.rotation+1)*(Math.PI/16),
+        y: menu.rotation,
         z: 0,
-        duration: 2,
+        duration: 1,
         ease: Power4.easeInOut,
       });
       console.log((menu.rotation+1)*(Math.PI/8));
