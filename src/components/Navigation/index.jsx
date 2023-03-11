@@ -74,7 +74,7 @@ const Navigation = ({ route }) => {
             <p
             key={i}
               className={`text-[16px] tracking-[2px] ${
-                selected === i ? "text-white" : "text-[#ccc]"
+                selected === i ? "text-[#b30030]" : "text-white"
               } h-[18px] uppercase leading-[18px] font-medium cursor-pointer font-mono ${
                 i === 0
                   ? ""

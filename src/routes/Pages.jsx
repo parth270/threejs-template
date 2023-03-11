@@ -37,13 +37,13 @@ const Pages = () => {
       duration={1}
       delay={0}
     >
-      <div className="w-full h-[100vh] bg-[#41314e] absolute z-100 flex justify-between  py-[100px] pr-[80px]">
+      <div className="w-full h-[100vh] bg-[transparent] absolute z-100 flex justify-between  py-[100px] pr-[80px]">
         <Tween
           from={{
             x: -500,
           }}
           to={{
-            x: close ? -500 : 0,
+            x: close? -500 : 250,
           }}
           delay={close ? 0 : 0.5}
           duration={0.5}
@@ -64,8 +64,8 @@ const Pages = () => {
                 dispatch(setRoute("Home"));
                 setClose(true);
                 setTimeout(() => {
-                  dispatch(changePage(null));
                   router("/");
+                  dispatch(changePage(null));
                 }, 1000);
               }}
             >

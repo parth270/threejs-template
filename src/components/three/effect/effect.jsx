@@ -16,7 +16,7 @@ const Effects = () => {
         height={480}
       />
       <Noise opacity={0.025} />
-      <Vignette eskil={false} offset={0.1} darkness={1.2} />
+      <Vignette eskil={false} offset={0.1} darkness={0.4} />
     </EffectComposer>
   );
 };

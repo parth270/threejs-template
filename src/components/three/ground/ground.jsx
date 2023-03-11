@@ -23,7 +23,8 @@ const Ground = () => {
         depthScale={50}
         // color={"#2b0032"}
         // color={"#a55fb1"}
-        color={"#d6b1dc"}
+        // color={"#d6b1dc"}
+        color={"#b30030"}
       />
     </mesh>
   );
