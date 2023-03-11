@@ -87,7 +87,7 @@ const Rig = (props) => {
       });
       gsap.to(ref.current.rotation, {
         x: -Math.PI / 18,
-        y: 0,
+        y: -Math.PI/8,
         z: 0,
         duration: 1,
         delay: 0.25,

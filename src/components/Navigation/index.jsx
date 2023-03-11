@@ -1,17 +1,10 @@
 import React from "react";
 import { Tween } from "react-gsap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { changeRotation, currentVid } from "../../services/three";
 
-const Navigation = ({ current, route }) => {
-  console.log(current, route);
-  const [show, setShow] = React.useState(route);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setShow(current);
-    }, 1000);
-  });
+const Navigation = ({ route }) => {
 
   const titles = [
     {
@@ -47,13 +40,13 @@ const Navigation = ({ current, route }) => {
       id: 7,
     },
   ];
-
+  const state = useSelector(state=>state.three);
   const [selected, setSelected] = React.useState(0);
   const dispatch = useDispatch();
   React.useEffect(() => {
+    console.log(selected,"check here!")
       dispatch(currentVid(selected));
   }, [selected]);
-
 
   return (
     <Tween
@@ -67,7 +60,7 @@ const Navigation = ({ current, route }) => {
       }}
       delay={0.5}
     >
-      <div className="w-[100%] h-[40px] absolute flex items-center justify-center  bottom-[40px] left-[0] text-white"
+      <div className="w-[100%] h-[40px] absolute flex items-center justify-center  bottom-[30px] left-[0] text-white"
         style={{
             zIndex:"120"
         }}
@@ -80,6 +73,7 @@ const Navigation = ({ current, route }) => {
         {titles.map((item, i) => {
           return (
             <p
+            key={i}
               className={`text-[16px] tracking-[2px] ${
                 selected === i ? "text-white" : "text-[#ccc]"
               } h-[18px] uppercase leading-[18px] font-medium cursor-pointer font-mono ${
@@ -89,6 +83,9 @@ const Navigation = ({ current, route }) => {
               }  `}
               onClick={() => {
                 setSelected(i);
+                if(state.page!==null){
+                  
+                }
               }}
             >
               {item.title}

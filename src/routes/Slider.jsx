@@ -14,27 +14,29 @@ const Slider = () => {
     if (starting) {
       console.log(state);
       if (state.route === "Slider") {
-        if(state.page===null){
-            router("Home");
-        } 
+        if (state.page === null) {
+          router("Home");
+        }
       } else if (state.route === "Home") {
         router("/");
       }
     }
     setStarting(true);
-  }, [state.route,state.page]);
+  }, [state.route, state.page]);
 
-  React.useEffect(()=>{
-    if(state.page!==null){
-        router(`/Home/${state.page}`)
+  React.useEffect(() => {
+    if (state.page !== null) {
+      setTimeout(() => {
+        router(`/Home/${state.page}`);
+      }, 1500);
     }
-  },[state.page])
+  }, [state.page]);
 
-  React.useEffect(()=>{
-    if(state.route==="Home"){
-        router("/")
+  React.useEffect(() => {
+    if (state.route === "Home") {
+      router("/");
     }
-  })
+  });
 
   return <></>;
 };

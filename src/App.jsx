@@ -12,46 +12,46 @@ import {
 
 const pages = [
   {
-    id:0,
-    theme:"#e376e2",
-    back:"#2b0032"
+    id: 0,
+    theme: "#e376e2",
+    back: "#2b0032",
   },
   {
-    id:1,
-    theme:"#e376e2",
-    back:"#e376e2"
+    id: 1,
+    theme: "#e376e2",
+    back: "#e376e2",
   },
   {
-    id:2,
-    theme:"#ee913e",
-    back:"#ee913e",
+    id: 2,
+    theme: "#ee913e",
+    back: "#ee913e",
   },
   {
-    id:3,
-    theme:"#ee913e",
-    back:"#ee913e",
+    id: 3,
+    theme: "#ee913e",
+    back: "#ee913e",
   },
   {
-    id:4,
-    theme:"#dacf20",
-    back:"#dacf20",
+    id: 4,
+    theme: "#dacf20",
+    back: "#dacf20",
   },
   {
-    id:5,
-    theme:"#568694",
-    back:"#568694"
+    id: 5,
+    theme: "#568694",
+    back: "#568694",
   },
   {
-    id:6,
-    theme:"#429ae8",
-    back:"#429ae8",
+    id: 6,
+    theme: "#429ae8",
+    back: "#429ae8",
   },
   {
-    id:7,
-    theme:"#e24c4a",
-    back:"#e24c4a",
+    id: 7,
+    theme: "#e24c4a",
+    back: "#e24c4a",
   },
-]
+];
 const App = (props) => {
   const [watch, setWatch] = React.useState(false);
   const dispatch = useDispatch();
@@ -85,10 +85,10 @@ const App = (props) => {
   }, [state.route]);
 
   const theme = {
-    color:pages[state.current].theme
-  }
+    color: pages[state.current].theme,
+  };
 
-  console.log(state.current,theme);
+  console.log(state.current, theme);
 
   console.log(route, "please check here");
   return (
@@ -114,7 +114,12 @@ const App = (props) => {
                     transform: "translateY(0px)",
                   }}
                   to={{
-                    opacity: state.route === "Slider" ?state.page===null? 1:0 : 0,
+                    opacity:
+                      state.route === "Slider"
+                        ? state.page == null
+                          ? 1
+                          : 0
+                        : 0,
                     transform:
                       state.route !== "Home"
                         ? "translateY(-35px)"
@@ -126,17 +131,20 @@ const App = (props) => {
                     <h1 className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]">
                       A Virtual Open Days event featuring12 academic islands
                     </h1>
-                    <div className={`w-[180px] cursor-pointer duration-1000 flex items-center justify-between pt-[20px]  text-[16px] mt-[30px] border-t-[2px] `}
+                    <div
+                      className={`w-[180px] cursor-pointer duration-1000 flex items-center justify-between pt-[20px]  text-[16px] mt-[30px] border-t-[2px] `}
                       style={{
-                        color:theme.color,
-                        borderColor:theme.color
+                        color: theme.color,
+                        borderColor: theme.color,
                       }}
-                      onClick={()=>{
+                      onClick={() => {
                         console.log("page is loading");
-                        dispatch(changePage(1));
+                        dispatch(changePage(state.current + 1));
                       }}
                     >
-                      <p className="w-[140px] font-medium tracking-wider ">SDU Open Days</p>
+                      <p className="w-[140px] font-medium tracking-wider ">
+                        SDU Open Days
+                      </p>
                       <p>{">"}</p>
                     </div>
                   </div>
@@ -186,7 +194,7 @@ const App = (props) => {
               width: "950px",
             }}
             to={{
-              width: state.route === "Slider" ? "200px" : "950px",
+              width: false ? "200px" : "950px",
             }}
             duration={0.5}
           >
@@ -231,18 +239,31 @@ const App = (props) => {
                       Motley Crowd imagines, explores and builds immersive
                       events for the digital age.
                     </h1>
-                    <div
-                      className="w-[240px] mt-[30px] border-t-[2px] border-[#cb5ce3] pt-[20px]"
-                      onClick={() => {
-                        if (intialWait) {
-                          dispatch(openMenu());
-                          dispatch(setRoute({ route: "Slider" }));
-                        }
-                      }}
-                    >
-                      <p className="text-[#cb5ce3] text-[18px] w-[120px] tracking-wider">
-                        Explore our projects
-                      </p>
+                    <div>
+                      <Tween
+                        from={{
+                          opacity: 0,
+                        }}
+                        to={{
+                          opacity: intialWait ? 1 : 0,
+                        }}
+                        duration={0.5}
+                      >
+                        <div
+                          className={`w-[240px] mt-[30px] border-t-[2px] border-[#cb5ce3] pt-[20px] duration-300 `}
+                          style={{}}
+                          onClick={() => {
+                            if (intialWait) {
+                              dispatch(openMenu());
+                              dispatch(setRoute({ route: "Slider" }));
+                            }
+                          }}
+                        >
+                          <p className="text-[#cb5ce3] text-[18px] w-[120px] tracking-wider">
+                            Explore our projects
+                          </p>
+                        </div>
+                      </Tween>
                     </div>
                   </Tween>
                 )}
@@ -256,7 +277,9 @@ const App = (props) => {
           <span className="text-[#cb5ce3] font-bold ">PLAY</span> {">"} 0:57
         </p>
       )}
-      {route1 === "Slider" && <Navigation route={route} current={state.route} />}
+      {route1 === "Slider" && (
+        <Navigation route={route} current={state.route} />
+      )}
     </>
   );
 };
