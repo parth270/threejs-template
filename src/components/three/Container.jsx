@@ -66,11 +66,11 @@ const Rig = (props) => {
   const startingPos = new THREE.Vector3(0, 1.8, 7.5);
   const midPos = new THREE.Vector3(0, 1.6, 6);
   const endPos = new THREE.Vector3(0, 1.125, 5.5);
-  const topPos = new THREE.Vector3(8,14,0);
+  const topPos = new THREE.Vector3(8, 14, 0);
   const dispatch = useDispatch();
   const camera = three.camera;
-  const tl=gsap.timeline();
-  const [paagess,setPages] = React.useState(false);
+  const tl = gsap.timeline();
+  const [paagess, setPages] = React.useState(false);
   React.useEffect(() => {
     if (menu.route === "Slider") {
       tl.to(camera.position, {
@@ -78,8 +78,8 @@ const Rig = (props) => {
         y: endPos.y,
         z: endPos.z,
         duration: 2,
-        onUpdate:(e)=>{
-          console.log(tl.progress())
+        onUpdate: (e) => {
+          console.log(tl.progress());
         },
         ease: Power4.easeInOut,
       });
@@ -92,7 +92,7 @@ const Rig = (props) => {
       });
       gsap.to(ref.current.rotation, {
         x: -Math.PI / 18,
-        y: -Math.PI/8,
+        y: -Math.PI / 8,
         z: 0,
         duration: 1,
         delay: 0.25,
@@ -100,8 +100,7 @@ const Rig = (props) => {
       });
     } else if (menu.route === "Home") {
       if (starting) {
-        if(!paagess){
-
+        if (!paagess) {
           gsap.to(camera.position, {
             x: startingPos.x,
             y: startingPos.y,
@@ -113,7 +112,7 @@ const Rig = (props) => {
             x: -3,
             y: 0,
             z: -1,
-            duration: 2,
+            duration: 1.5,
             ease: Power4.easeInOut,
           });
           gsap.to(ref.current.rotation, {
@@ -129,52 +128,63 @@ const Rig = (props) => {
     setStarting(true);
   }, [menu.route]);
 
-  React.useEffect(()=>{
-    const tl=gsap.timeline();
-      if(menu.page!==null){
-        setPages(false);
-        tl.to(camera.position, {
-          x: topPos.x,
-          y: topPos.y,
-          z: topPos.z,
-          onUpdate:()=>{
-            const pro =tl.progress();
-            camera.lookAt(pro*8,-0.2,-1);
-          },
-          duration: 2,
-          ease: Power4.easeInOut,
-        });
-        gsap.to(ref.current.rotation, {
-          x: -Math.PI / 18,
-          y: -Math.PI/8,
-          z: -Math.PI/6,
-          duration: 1,
-          delay: 1,
-          ease: Power4.easeInOut,
-        });
-      }else{
-        setPages(true);
+  const [check, setCheck] = React.useState(false);
+
+  React.useEffect(() => {
+    const tl = gsap.timeline();
+    if (menu.page !== null) {
+      setPages(false);
+      tl.to(camera.position, {
+        x: topPos.x,
+        y: topPos.y,
+        z: topPos.z,
+        onUpdate: () => {
+          const pro = tl.progress();
+          const i = tl.progress().toFixed(2) * 100;
+          console.log(i);
+          const y = camera.rotation.y;
+          camera.lookAt(pro * 8, -0.2, -1);
+          camera.rotation.y = y;
+        },
+        duration: 2,
+        ease: Power4.easeInOut,
+      });
+      gsap.to(ref.current.rotation, {
+        x: -Math.PI / 18,
+        y: -Math.PI / 8,
+        z: -Math.PI / 6,
+        duration: 1,
+        delay: 1,
+        ease: Power4.easeInOut,
+      });
+    } else {
+      setPages(true);
+      setCheck(true);
+      if (check) {
         tl.to(camera.position, {
           x: startingPos.x,
           y: startingPos.y,
           z: startingPos.z,
-           onUpdate:()=>{
-            const pro =1-tl.progress();
-            camera.lookAt(pro*8,-0.2,-pro);
-          },
           duration: 2,
+          onUpdate: () => {
+            const pro = 1 - tl.progress();
+            const y = camera.rotation.y;
+            camera.lookAt(pro * 8, -0.2, -1);
+            camera.rotation.y = y * pro;
+          },
           ease: Power4.easeInOut,
-        })
+        });
         gsap.to(ref.current.rotation, {
           x: 0,
-          y:0,
+          y: 0,
           z: 0,
           duration: 1,
-          delay: 2,
+          delay: 0,
           ease: Power4.easeInOut,
         });
       }
-  },[menu.page])
+    }
+  }, [menu.page]);
   React.useEffect(() => {
     if (menu.route === "Slider") {
       gsap.to(ref.current.rotation, {
@@ -186,7 +196,6 @@ const Rig = (props) => {
       });
     }
   }, [menu.rotation]);
-
 
   useFrame(() => {
     if (!menu.menuOpen) {
@@ -206,11 +215,12 @@ const Rig = (props) => {
   return (
     <>
       <group {...props} ref={ref} />
-      <color attach="background" 
-      // args={[pages[0].back]}
-      args={["#c06b82"]}
-       />
-       <axesHelper/>
+      <color
+        attach="background"
+        // args={[pages[0].back]}
+        args={["#c06b82"]}
+      />
+      <axesHelper />
       <fog color={"#c06b82"} attach="fog" near={1} far={30} />
     </>
   );
