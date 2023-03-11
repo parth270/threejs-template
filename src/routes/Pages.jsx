@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { changePage, setRoute } from "../services/three";
 import classes from "../components/cross/index.module.css";
 
@@ -11,11 +11,15 @@ const Pages = () => {
 
   const [close, setClose] = useState(false);
   const state = useSelector((state) => state.three);
+  const location = useLocation();
   React.useEffect(() => {
     if (state.page === null) {
       router("/");
     }else{
-      router(`/Home/${state.page}`)
+      const path=location.pathname[location.pathname.length-1]
+      if(path!==state.page){
+        // router(`/Home/${state.page}`)
+      }
     }
   });
 
