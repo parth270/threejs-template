@@ -15,13 +15,16 @@ const Pages = () => {
   React.useEffect(() => {
     if (state.page === null) {
       router("/");
-    }else{
-      const path=location.pathname[location.pathname.length-1]
-      if(path!==state.page){
-        // router(`/Home/${state.page}`)
-      }
     }
   });
+
+  React.useEffect(() => {
+    const path = location.pathname[location.pathname.length - 1];
+    console.log(path)
+    if(path!==state.page){
+      router(`/Home/${state.page}`)
+    }
+  }, [state.page]);
 
   return (
     <Tween
@@ -42,7 +45,7 @@ const Pages = () => {
           to={{
             x: close ? -500 : 0,
           }}
-          delay={close?0:0.5}
+          delay={close ? 0 : 0.5}
           duration={0.5}
         >
           <img
@@ -54,7 +57,7 @@ const Pages = () => {
         <div className="w-[50%] h-[400px]">
           <div className="flex justify-between items-center border-b-[2px] border-[#fff] pb-[15px]">
             <h1 className="text-[40px] uppercase text-white ">HEADING</h1>
-           
+
             <div
               className={classes.container}
               onClick={() => {

@@ -12,7 +12,6 @@ const Slider = () => {
 
   React.useEffect(() => {
     if (starting) {
-      console.log(state);
       if (state.route === "Slider") {
         if (state.page === null) {
           router("Home");

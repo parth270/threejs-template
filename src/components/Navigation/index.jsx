@@ -2,7 +2,7 @@ import React from "react";
 import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeRotation, currentVid } from "../../services/three";
+import { changePage, changeRotation, currentVid } from "../../services/three";
 
 const Navigation = ({ route }) => {
 
@@ -44,7 +44,6 @@ const Navigation = ({ route }) => {
   const [selected, setSelected] = React.useState(0);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    console.log(selected,"check here!")
       dispatch(currentVid(selected));
   }, [selected]);
 
@@ -84,7 +83,7 @@ const Navigation = ({ route }) => {
               onClick={() => {
                 setSelected(i);
                 if(state.page!==null){
-                  
+                  dispatch(changePage(i+1));
                 }
               }}
             >

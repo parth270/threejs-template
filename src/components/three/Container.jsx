@@ -100,9 +100,6 @@ const Rig = (props) => {
           y: startingPos.y,
           z: startingPos.z,
           duration: 2,
-          onUpdate:(e)=>{
-            console.log("check it only here" ,e)
-          },
           ease: Power4.easeInOut,
         });
         gsap.to(ref.current.position, {
@@ -131,9 +128,6 @@ const Rig = (props) => {
           y: topPos.y,
           z: topPos.z,
           duration: 2,
-          onUpdate:(e)=>{
-            console.log("check it only here" ,e)
-          },
           ease: Power4.easeInOut,
         });
       }else{
@@ -142,14 +136,10 @@ const Rig = (props) => {
           y: startingPos.y,
           z: startingPos.z,
           duration: 2,
-          onUpdate:(e)=>{
-            console.log("check it only here" ,e)
-          },
           ease: Power4.easeInOut,
         });
       }
   },[menu.page])
-  console.log(menu.route, "please check hhere!");
   React.useEffect(() => {
     if (menu.route === "Slider") {
       gsap.to(ref.current.rotation, {
@@ -159,7 +149,6 @@ const Rig = (props) => {
         duration: 1,
         ease: Power4.easeInOut,
       });
-      console.log((menu.rotation + 1) * (Math.PI / 8));
     }
   }, [menu.rotation]);
 

@@ -10,7 +10,6 @@ const Home = () => {
   const [starting, setStarting] = React.useState(false);
   React.useEffect(() => {
     if (starting) {
-        console.log(state)
         if(state.route==="Slider"){
             router("Home");
         }else if(state.route==="Home"){
@@ -18,7 +17,6 @@ const Home = () => {
         }
     }else if(state.route!=="Home"){
         dispatch(setRoute({route:"Home"}));
-        console.log("Home");
     }
     setStarting(true);
   }, [state.route]);

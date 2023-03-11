@@ -88,9 +88,7 @@ const App = (props) => {
     color: pages[state.current].theme,
   };
 
-  console.log(state.current, theme);
 
-  console.log(route, "please check here");
   return (
     <>
       <div className="w-[100%] flex flex-col min-h-[100vh]  absolute top-0 z-2000">
@@ -138,7 +136,6 @@ const App = (props) => {
                         borderColor: theme.color,
                       }}
                       onClick={() => {
-                        console.log("page is loading");
                         dispatch(changePage(state.current + 1));
                       }}
                     >

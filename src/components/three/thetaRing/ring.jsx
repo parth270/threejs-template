@@ -68,9 +68,6 @@ const Cylinder = (props) => {
         Number(props.i) * 45 * THREE.MathUtils.DEG2RAD,
         0 * THREE.MathUtils.DEG2RAD,
       ]}
-      onClick={()=>{
-        console.log(props.i)
-      }}
     >
       <Suspense fallback={null}>
         <meshBasicMaterial
