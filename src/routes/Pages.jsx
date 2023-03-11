@@ -14,6 +14,8 @@ const Pages = () => {
   React.useEffect(() => {
     if (state.page === null) {
       router("/");
+    }else{
+      router(`/Home/${state.page}`)
     }
   });
 
