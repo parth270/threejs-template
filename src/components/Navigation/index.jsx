@@ -45,6 +45,7 @@ const Navigation = ({ route }) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     if(state.page===null){
+      console.log("thiss is exxecuting!")
       dispatch(currentVid(selected));
     }
   }, [selected]);

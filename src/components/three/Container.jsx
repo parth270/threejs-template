@@ -136,7 +136,6 @@ const Rig = (props) => {
     if (menu.page !== null) {
       setPages(false);
       if(paagess){
-
         tl.to(camera.position, {
           x: topPos.x,
           y: topPos.y,
@@ -191,7 +190,7 @@ const Rig = (props) => {
   }, [menu.page]);
   React.useEffect(() => {
     if (menu.route === "Slider") {
-      if(!paagess){
+      if(paagess){
         gsap.to(ref.current.rotation, {
           x: -Math.PI / 18,
           y: menu.rotation,
