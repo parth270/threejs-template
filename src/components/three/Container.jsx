@@ -66,7 +66,7 @@ const Rig = (props) => {
   const startingPos = new THREE.Vector3(0, 1.8, 7.5);
   const midPos = new THREE.Vector3(0, 1.6, 6);
   const endPos = new THREE.Vector3(0, 1.125, 5.5);
-  const topPos = new THREE.Vector3(8, 14, 0);
+  const topPos = new THREE.Vector3(8, 12, 0);
   const dispatch = useDispatch();
   const camera = three.camera;
   const tl = gsap.timeline();
@@ -100,7 +100,8 @@ const Rig = (props) => {
       });
     } else if (menu.route === "Home") {
       if (starting) {
-        if (!paagess) {
+        if(menu.page===null){
+
           gsap.to(camera.position, {
             x: startingPos.x,
             y: startingPos.y,
@@ -134,29 +135,32 @@ const Rig = (props) => {
     const tl = gsap.timeline();
     if (menu.page !== null) {
       setPages(false);
-      tl.to(camera.position, {
-        x: topPos.x,
-        y: topPos.y,
-        z: topPos.z,
-        onUpdate: () => {
-          const pro = tl.progress();
-          const i = tl.progress().toFixed(2) * 100;
-          console.log(i);
-          const y = camera.rotation.y;
-          camera.lookAt(pro * 8, -0.2, -1);
-          camera.rotation.y = y;
-        },
-        duration: 2,
-        ease: Power4.easeInOut,
-      });
-      gsap.to(ref.current.rotation, {
-        x: -Math.PI / 18,
+      if(paagess){
+
+        tl.to(camera.position, {
+          x: topPos.x,
+          y: topPos.y,
+          z: topPos.z,
+          onUpdate: () => {
+            const pro = tl.progress();
+            const i = tl.progress().toFixed(2) * 100;
+            console.log(i);
+            const y = camera.rotation.y;
+            camera.lookAt(pro * 8, -0.2, -0.5);
+            camera.rotation.y = y;
+          },
+          duration: 2,
+          ease: Power4.easeInOut,
+        });
+        gsap.to(ref.current.rotation, {
+          x: -Math.PI / 18,
         y: -Math.PI / 8,
-        z: -Math.PI / 6,
+        z: -Math.PI / 4,
         duration: 1,
         delay: 1,
         ease: Power4.easeInOut,
       });
+    }
     } else {
       setPages(true);
       setCheck(true);
@@ -187,13 +191,15 @@ const Rig = (props) => {
   }, [menu.page]);
   React.useEffect(() => {
     if (menu.route === "Slider") {
-      gsap.to(ref.current.rotation, {
-        x: -Math.PI / 18,
-        y: menu.rotation,
-        z: 0,
-        duration: 1,
-        ease: Power4.easeInOut,
-      });
+      if(!paagess){
+        gsap.to(ref.current.rotation, {
+          x: -Math.PI / 18,
+          y: menu.rotation,
+          z: 0,
+          duration: 1,
+          ease: Power4.easeInOut,
+        });
+      }
     }
   }, [menu.rotation]);
 
@@ -220,7 +226,6 @@ const Rig = (props) => {
         // args={[pages[0].back]}
         args={["#c06b82"]}
       />
-      <axesHelper />
       <fog color={"#c06b82"} attach="fog" near={1} far={30} />
     </>
   );

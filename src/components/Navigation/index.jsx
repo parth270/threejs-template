@@ -44,7 +44,9 @@ const Navigation = ({ route }) => {
   const [selected, setSelected] = React.useState(0);
   const dispatch = useDispatch();
   React.useEffect(() => {
+    if(state.page===null){
       dispatch(currentVid(selected));
+    }
   }, [selected]);
 
   return (

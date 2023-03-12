@@ -43,14 +43,15 @@ const Pages = () => {
             x: -500,
           }}
           to={{
-            x: close? -500 : 250,
+            x: close? -500 : 200,
+            y:30
           }}
           delay={close ? 0 : 0.5}
           duration={0.5}
         >
           <img
             src="/test-1.png"
-            className="ml-[-150px] w-[40%] object-contain"
+            className="ml-[-150px] ] w-[40%] h-[80vh] object-contain"
             alt=""
           />
         </Tween>
