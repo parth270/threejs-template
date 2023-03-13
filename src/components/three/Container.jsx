@@ -6,13 +6,14 @@ import Effects from "./effect/effect";
 import Ground from "./ground/ground";
 import Cylinder from "./thetaRing/outerRing";
 import Ring from "./thetaRing/ring";
+import Ring1 from "./thetaRing/ring1";
 import useMouse from "../../hooks/useMouse";
 import { useDispatch, useSelector } from "react-redux";
 import gsap, { Power4 } from "gsap";
 import { Clock } from "three";
 import { initiateRef } from "../../services/three";
 import { useLocation } from "react-router-dom";
-
+import Cube from './thetaRing/cube';
 const pages = [
   {
     id: 0,
@@ -66,42 +67,43 @@ const Rig = (props) => {
   const startingPos = new THREE.Vector3(0, 1.8, 7.5);
   const midPos = new THREE.Vector3(0, 1.6, 6);
   const endPos = new THREE.Vector3(0, 1.125, 5.5);
-  const topPos = new THREE.Vector3(8, 12, 0);
+  const topPos = new THREE.Vector3(0, 0.5, 1);
   const dispatch = useDispatch();
   const camera = three.camera;
   const tl = gsap.timeline();
   const [paagess, setPages] = React.useState(false);
   React.useEffect(() => {
     if (menu.route === "Slider") {
-      tl.to(camera.position, {
-        x: endPos.x,
-        y: endPos.y,
-        z: endPos.z,
-        duration: 2,
-        onUpdate: (e) => {
-          console.log(tl.progress());
-        },
-        ease: Power4.easeInOut,
-      });
-      gsap.to(ref.current.position, {
-        x: 0,
-        y: 0,
-        z: 0,
-        duration: 2,
-        ease: Power4.easeInOut,
-      });
-      gsap.to(ref.current.rotation, {
-        x: -Math.PI / 18,
-        y: -Math.PI / 8,
-        z: 0,
-        duration: 1,
-        delay: 0.25,
-        ease: Power4.easeInOut,
-      });
+      if (menu.page === null) {
+        tl.to(camera.position, {
+          x: endPos.x,
+          y: endPos.y,
+          z: endPos.z,
+          duration: 2,
+          onUpdate: (e) => {
+            console.log(tl.progress());
+          },
+          ease: Power4.easeInOut,
+        });
+        gsap.to(ref.current.position, {
+          x: 0,
+          y: 0,
+          z: 0,
+          duration: 2,
+          ease: Power4.easeInOut,
+        });
+        gsap.to(ref.current.rotation, {
+          x: -Math.PI / 18,
+          y: -Math.PI / 8,
+          z: 0,
+          duration: 1,
+          delay: 0.25,
+          ease: Power4.easeInOut,
+        });
+      }
     } else if (menu.route === "Home") {
       if (starting) {
-        if(menu.page===null){
-
+        if (menu.page === null) {
           gsap.to(camera.position, {
             x: startingPos.x,
             y: startingPos.y,
@@ -135,7 +137,7 @@ const Rig = (props) => {
     const tl = gsap.timeline();
     if (menu.page !== null) {
       setPages(false);
-      if(paagess){
+      if (paagess) {
         tl.to(camera.position, {
           x: topPos.x,
           y: topPos.y,
@@ -145,7 +147,10 @@ const Rig = (props) => {
             const i = tl.progress().toFixed(2) * 100;
             console.log(i);
             const y = camera.rotation.y;
-            camera.lookAt(pro * 8, -0.2, -0.5);
+            const z = camera.rotation.z;
+
+            camera.lookAt(pro * 8, -0.34, -0.5);
+            camera.rotation.z = z;
             camera.rotation.y = y;
           },
           duration: 2,
@@ -153,13 +158,14 @@ const Rig = (props) => {
         });
         gsap.to(ref.current.rotation, {
           x: -Math.PI / 18,
-        y: -Math.PI / 8,
-        z: -Math.PI / 4,
-        duration: 1,
-        delay: 1,
-        ease: Power4.easeInOut,
-      });
-    }
+          y: menu.rotation/2,
+          // z: -Math.PI / 4,
+          z:0,
+            duration: 1,
+          delay: 1,
+          ease: Power4.easeInOut,
+        });
+      }
     } else {
       setPages(true);
       setCheck(true);
@@ -172,7 +178,9 @@ const Rig = (props) => {
           onUpdate: () => {
             const pro = 1 - tl.progress();
             const y = camera.rotation.y;
-            camera.lookAt(pro * 8, -0.2, -1);
+            const z = camera.rotation.z;
+            camera.lookAt(pro * 8, -0.35, -0.5);
+            camera.rotation.z = z * pro;
             camera.rotation.y = y * pro;
           },
           ease: Power4.easeInOut,
@@ -190,7 +198,7 @@ const Rig = (props) => {
   }, [menu.page]);
   React.useEffect(() => {
     if (menu.route === "Slider") {
-      if(paagess){
+      if (paagess) {
         gsap.to(ref.current.rotation, {
           x: -Math.PI / 18,
           y: menu.rotation,
@@ -217,6 +225,17 @@ const Rig = (props) => {
     }
   });
 
+  React.useEffect(()=>{
+    if(menu.page!==null){
+      gsap.to(ref.current.rotation,{
+        x:ref.current.rotation.x,
+        y:-((menu.page) * (Math.PI / 4) + Math.PI / 8),
+        z:0,
+        duration:1
+      })
+    }
+  },[menu.page]);
+
   return (
     <>
       <group {...props} ref={ref} />
@@ -242,6 +261,7 @@ const Scene = () => {
         castShadow
       />
       <Suspense fallback={null}>
+          <Cube/>
         <Rig position={[-3, 0, -1]} rotation={[0, (Math.PI * 0.12) / 2, 0]}>
           <Ring id={1} i={1} />
           <Ring id={2} i={2} />
