@@ -29,7 +29,7 @@ const Cylinder = (props) => {
         if(check1){
             tl.to(ref.current.position, {
                 y: 0,
-                duration: 1,
+                duration: 0.75,
                 delay: 0.75,
                 onUpdate: () => {
                     const pro = tl.progress();
@@ -45,7 +45,7 @@ const Cylinder = (props) => {
       if (check) {
         tl.to(ref.current.position, {
           y: 0,
-          duration: 1,
+          duration: 0.75,
           delay: 0,
           onUpdate: () => {
             const pro = 1 - tl.progress();
