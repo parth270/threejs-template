@@ -64,10 +64,10 @@ const Rig = (props) => {
   const menu = useSelector((state) => state.three);
   const [starting, setStarting] = React.useState(false);
   const three = useThree();
-  const startingPos = new THREE.Vector3(0, 1.8, 7.5);
-  const midPos = new THREE.Vector3(0, 1.6, 6);
-  const endPos = new THREE.Vector3(0, 1.125, 5.5);
-  const topPos = new THREE.Vector3(6, 8, 0);
+  const startingPos = new THREE.Vector3(0, 4, 21.5);
+  const midPos = new THREE.Vector3(0, 1.6, 13);
+  const endPos = new THREE.Vector3(0, 2.125, 11.5);
+  const topPos = new THREE.Vector3(6, 30, 0);
   const dispatch = useDispatch();
   const camera = three.camera;
   const tl = gsap.timeline();
@@ -147,7 +147,7 @@ const Rig = (props) => {
             console.log(i);
             const y = camera.rotation.y;
             const z = camera.rotation.z;
-            camera.lookAt(pro * 6, -0.32, -0.5);
+            camera.lookAt(pro * 6, -0.12, -0.5);
             camera.rotation.y = y;
             camera.rotation.z = z;
           },
@@ -157,7 +157,7 @@ const Rig = (props) => {
         gsap.to(ref.current.rotation, {
           x: -Math.PI / 18,
         y: -Math.PI / 8,
-        z: -Math.PI / 4,
+        z:- Math.PI*0.8/8,
         duration: 1,
         delay: 0.5,
         ease: Power4.easeInOut,
@@ -231,7 +231,7 @@ const Rig = (props) => {
         // args={[pages[0].back]}
         args={["#c06b82"]}
       />
-      <fog color={"#c06b82"} attach="fog" near={1} far={30} />
+      <fog color={"#c06b82"} attach="fog" near={20} far={100} />
     </>
   );
 };
@@ -284,7 +284,7 @@ const Container = () => {
   return (
     <div className="absolute w-[100%] h-[100vh]">
       <Canvas
-        camera={{ position: [0, 1.8, 7.5], fov:65 }}
+        camera={{ position: [0, 4, 21.5], fov:18 }}
         dpr={devicePixelRatio}
         gl={{ antialias: false, powerPreference: "high-performance" }}
         onCreated={({ gl }) => {

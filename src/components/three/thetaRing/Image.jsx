@@ -10,7 +10,7 @@ const Cylinder = (props) => {
   //   const texture = useVideoTexture(`/video (${props.id}).mp4`);
   //   texture.name = `video-${props.i}`;
   const totalRadius = 6.283185307179586;
-  const geometry1 = new THREE.CylinderGeometry(4, 4, 2.03, 180);
+  const geometry1 = new THREE.CylinderGeometry(4.01,4.01, 2.03, 180);
 
   const texture = useVideoTexture(`/video (${1}).mp4`);
   texture.name = `video-${1}`;

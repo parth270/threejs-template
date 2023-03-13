@@ -11,7 +11,7 @@ const Ground = () => {
   ]);
   return (
     <mesh rotation={[-Math.PI / 2, 0, Math.PI / 2]} position={[0, -1, 0]}>
-      <planeGeometry args={[100, 100]} />
+      <planeGeometry args={[1000, 1000]} />
       <MeshReflectorMaterial
         blur={[300, 100]}
         resolution={512}
