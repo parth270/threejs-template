@@ -14,7 +14,7 @@ const Tv = () => {
         tl.to(ref.current.position, {
           y: -0.1,
           duration: 3,
-          delay: 2,
+          delay: 1.25,
           onUpdate: () => {
             const pro = tl.progress();
             // ref.current.lookAt(0, 1.125*pro, 5.5*pro)
