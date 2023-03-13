@@ -25,6 +25,7 @@ const Cylinder = (props) => {
     0,
     totalRadius
   );
+
   return (
     <>
       <mesh position={[0, 0.003, 0]} geometry={geometry1}>
@@ -34,6 +35,7 @@ const Cylinder = (props) => {
       <mesh position={[0, 0.003, 0]} geometry={geometry2}>
         <meshPhongMaterial color={"#000"} toneMapped={false} side={THREE.BackSide}  />
       </mesh>
+
       </>
     </>
   );

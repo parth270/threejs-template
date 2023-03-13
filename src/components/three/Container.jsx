@@ -6,6 +6,7 @@ import Effects from "./effect/effect";
 import Ground from "./ground/ground";
 import Cylinder from "./thetaRing/outerRing";
 import Ring from "./thetaRing/ring";
+import Ring1 from "./thetaRing/Image";
 import useMouse from "../../hooks/useMouse";
 import { useDispatch, useSelector } from "react-redux";
 import gsap, { Power4 } from "gsap";
@@ -66,7 +67,7 @@ const Rig = (props) => {
   const startingPos = new THREE.Vector3(0, 1.8, 7.5);
   const midPos = new THREE.Vector3(0, 1.6, 6);
   const endPos = new THREE.Vector3(0, 1.125, 5.5);
-  const topPos = new THREE.Vector3(8, 12, 0);
+  const topPos = new THREE.Vector3(6, 8, 0);
   const dispatch = useDispatch();
   const camera = three.camera;
   const tl = gsap.timeline();
@@ -145,8 +146,10 @@ const Rig = (props) => {
             const i = tl.progress().toFixed(2) * 100;
             console.log(i);
             const y = camera.rotation.y;
-            camera.lookAt(pro * 8, -0.2, -0.5);
+            const z = camera.rotation.z;
+            camera.lookAt(pro * 6, -0.32, -0.5);
             camera.rotation.y = y;
+            camera.rotation.z = z;
           },
           duration: 2,
           ease: Power4.easeInOut,
@@ -156,7 +159,7 @@ const Rig = (props) => {
         y: -Math.PI / 8,
         z: -Math.PI / 4,
         duration: 1,
-        delay: 1,
+        delay: 0.5,
         ease: Power4.easeInOut,
       });
     }
@@ -172,8 +175,10 @@ const Rig = (props) => {
           onUpdate: () => {
             const pro = 1 - tl.progress();
             const y = camera.rotation.y;
-            camera.lookAt(pro * 8, -0.2, -1);
+            const z = camera.rotation.z;
+            camera.lookAt(pro * 6, -0.125, -0.5);
             camera.rotation.y = y * pro;
+            camera.rotation.z = z * pro;
           },
           ease: Power4.easeInOut,
         });
@@ -182,12 +187,13 @@ const Rig = (props) => {
           y: 0,
           z: 0,
           duration: 1,
-          delay: 0,
+          delay: 0.5,
           ease: Power4.easeInOut,
         });
       }
     }
   }, [menu.page]);
+
   React.useEffect(() => {
     if (menu.route === "Slider") {
       if(paagess){
@@ -231,6 +237,14 @@ const Rig = (props) => {
 };
 
 const Scene = () => {
+  const three=useThree();
+
+  // React.useEffect(()=>{
+  //   const horizontalFov=90;
+  //   const hfov=(Math.atan(Math.tan(((horizontalFov / 2) * Math.PI) / 180) / three.camera.aspect) * 2 * 180) / Math.PI;
+  //   three.camera.fov=hfov;
+  // })
+
   return (
     <>
       <Effects />
@@ -243,6 +257,7 @@ const Scene = () => {
       />
       <Suspense fallback={null}>
         <Rig position={[-3, 0, -1]} rotation={[0, (Math.PI * 0.12) / 2, 0]}>
+          <Ring1 />
           <Ring id={1} i={1} />
           <Ring id={2} i={2} />
           <Ring id={3} i={3} />
@@ -265,10 +280,11 @@ const Container = () => {
     const pixel = window.devicePixelRatio;
     setDevicePixelRatio(pixel);
   }, []);
+  var horizontalFov = 90;
   return (
     <div className="absolute w-[100%] h-[100vh]">
       <Canvas
-        camera={{ position: [0, 1.8, 7.5], fov: 65 }}
+        camera={{ position: [0, 1.8, 7.5], fov:65 }}
         dpr={devicePixelRatio}
         gl={{ antialias: false, powerPreference: "high-performance" }}
         onCreated={({ gl }) => {

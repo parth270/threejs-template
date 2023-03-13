@@ -43,7 +43,7 @@ const Pages = () => {
             x: -500,
           }}
           to={{
-            x: close? -500 : 200,
+            x: true? -500 : 200,
             y:30
           }}
           delay={close ? 0 : 0.5}
