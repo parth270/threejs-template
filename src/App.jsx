@@ -1,4 +1,5 @@
-import React from "react";
+import gsap, { Power4 } from "gsap";
+import React, { useRef } from "react";
 import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
 import Navigation from "./components/Navigation";
@@ -8,6 +9,7 @@ import {
   closeMenu,
   openMenu,
   setRoute,
+  transitionEvent,
 } from "./services/three";
 import dummy from "./shared/content";
 
@@ -88,6 +90,33 @@ const App = (props) => {
   const theme = {
     color: pages[state.current].theme,
   };
+  const title=useRef();
+  // React.useEffect(()=>{
+  //   if(state.currentTransition){
+  //     gsap.to(title.current,{
+  //       opacity:1,
+  //       duration:1,
+  //       ease:Power4.easeInOut
+  //     });
+  //     // gsap.to(para.current,{
+  //     //   opacity:1,
+  //     //   duration:1,
+  //     //   ease:Power4.easeInOut
+  //     // });
+  //   }else{
+  //     gsap.to(title.current,{
+  //       // width:"0%",
+  //       opacity:0,
+  //       duration:1,
+  //       ease:Power4.easeInOut
+  //     })
+  //     // gsap.to(para.current,{
+  //     //   opacity:0,
+  //     //   duration:1,
+  //     //   ease:Power4.easeInOut
+  //     // });
+  //   }
+  // },[state.currentTransition]);
 
   return (
     <>
@@ -113,8 +142,8 @@ const App = (props) => {
                   to={{
                     opacity:
                       state.route === "Slider"
-                        ? state.page == null
-                          ? 1
+                        ? state.page ===null
+                          ? state.currentTransition?1:0
                           : 0
                         : 0,
                     transform:
@@ -122,11 +151,11 @@ const App = (props) => {
                         ? "translateY(-35px)"
                         : "translateY(0px)",
                   }}
-                  duration={1}
+                  duration={0.75}
                 >
                   <div className="mt-[140px]">
-                    <h1 className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]">
-                      {dummy[state.page===null?0:(state.page-1)].title}
+                    <h1 className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]" ref={title} >
+                      {dummy[(state.current)].title}
                     </h1>
                     <div
                       className={`w-[180px] cursor-pointer duration-1000 flex items-center justify-between pt-[20px]  text-[16px] mt-[30px] border-t-[2px] `}
@@ -136,6 +165,7 @@ const App = (props) => {
                       }}
                       onClick={() => {
                         dispatch(changePage(state.current + 1));
+                        dispatch(transitionEvent(true));
                       }}
                     >
                       <p className="w-[140px] font-medium tracking-wider ">

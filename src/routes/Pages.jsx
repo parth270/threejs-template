@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { changePage, setRoute } from "../services/three";
+import { changePage, setRoute, transitionEvent } from "../services/three";
 import classes from "../components/cross/index.module.css";
 import dummy from "../shared/content";
+import gsap, { Power4, SteppedEase } from "gsap";
 const Pages = () => {
   const router = useNavigate();
   const dispatch = useDispatch();
@@ -31,6 +32,51 @@ const Pages = () => {
       }
     }
   }, [state.page]);
+  const title = useRef();
+  const para = useRef();
+  // React.useEffect(()=>{
+
+  //   const tl = gsap.timeline();
+  //   tl.fromTo(title.current,
+  //     {
+  //       borderRightColor: "rgba(255,255,255,0.75)",
+  //       repeat: -1,
+  //       ease:  SteppedEase.config(37),
+  //       duration:0.5
+  //     }
+  //     ,{
+  //     borderRightColor: "rgba(255,255,255,0)",
+  //     repeat: -1,
+  //     ease:  SteppedEase.config(37),
+  //     duration:0.5
+  //   });
+  // },[]);
+  let width;
+  React.useEffect(() => {
+    if (state.pageTransition) {
+      gsap.to(title.current, {
+        width: "90%",
+        duration: 1,
+        ease: Power4.easeInOut,
+      });
+      gsap.to(para.current, {
+        opacity: 1,
+        duration: 1,
+        ease: Power4.easeInOut,
+      });
+    } else {
+      gsap.to(title.current, {
+        width: "0%",
+        duration: 1,
+        ease: Power4.easeInOut,
+      });
+      gsap.to(para.current, {
+        opacity: 0,
+        duration: 1,
+        ease: Power4.easeInOut,
+      });
+    }
+  }, [state.pageTransition]);
 
   return (
     <Tween
@@ -61,34 +107,41 @@ const Pages = () => {
             alt=""
           />
         </Tween>
-        <div className="w-[50%] h-[400px]">
+        <div className="w-[55%] h-[400px] pt-[30px]">
           <div className="flex justify-between items-center border-b-[2px] border-[#fff] pb-[15px]">
-            <h1 className="text-[40px] uppercase text-white ">
+            <h1
+              className={`text-[34px] uppercase text-white whitespace-nowrap border-r-[2px] pr-[4px] overflow-x-hidden border-[#fff]`}
+              ref={title}
+            >
               {dummy[Number(Path) - 1].title}
             </h1>
-            <div
-              className={classes.container}
-              onClick={() => {
-                dispatch(setRoute("Home"));
-                setClose(true);
-                setTimeout(() => {
-                  router("/");
-                  dispatch(changePage(null));
-                }, 1000);
-              }}
-            >
-              <span
-                className={classes.one}
-                style={{ backgroundColor: "#fff" }}
-              />
-              <span
-                className={classes.three}
-                style={{ backgroundColor: "#fff" }}
-              />
+            <div className="w-[10%] flex justify-center">
+              <div
+                className={classes.container}
+                style={{}}
+                onClick={() => {
+                  dispatch(setRoute("Home"));
+                  setClose(true);
+                  setTimeout(() => {
+                    router("/");
+                    dispatch(transitionEvent(false));
+                    dispatch(changePage(null));
+                  }, 1000);
+                }}
+              >
+                <span
+                  className={classes.one}
+                  style={{ backgroundColor: "#fff" }}
+                />
+                <span
+                  className={classes.three}
+                  style={{ backgroundColor: "#fff" }}
+                />
+              </div>
             </div>
           </div>
           <div className="w-full h-[400px] p-[20px] mt-[30px] pr-[100px] overflow-y-auto scroll-bar-cool">
-            <p className="text-white text-[16px] tracking-wider">
+            <p className="text-white text-[16px] tracking-wider" ref={para}>
               {dummy[Number(Path) - 1].para}
             </p>
           </div>
