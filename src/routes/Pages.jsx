@@ -117,7 +117,7 @@ const Pages = () => {
         <div className="w-[55%] h-[400px] pt-[30px]">
           <div className="flex justify-between items-center border-b-[2px] border-[#fff] pb-[15px]">
             <h1
-              className={`text-[34px] uppercase text-white whitespace-nowrap border-r-[2px] pr-[4px] overflow-x-hidden border-[#fff]`}
+              className={`text-[34px] uppercase text-white whitespace-nowrap border-r-[2px]  overflow-x-hidden border-[#fff]`}
               ref={title}
             >
               {dummy[Number(Path) - 1].title}
