@@ -204,7 +204,7 @@ const Rig = (props) => {
           y: menu.rotation,
           z: 0,
           duration: 1,
-          ease: Power4.easeInOut,
+          ease: Power4.easeIn,
         });
       }
     }
