@@ -10,6 +10,8 @@ const threeSlice = createSlice({
     page: null,
     pageTransition: null,
     currentTransition: 0,
+    dragging:false,
+    drag:{x:0,y:0,x1:0,y1:0}
   },
   reducers: {
     openMenu: (state) => {
@@ -46,7 +48,12 @@ const threeSlice = createSlice({
     },
     transitionEventCurrent: (state, action) => {
       state.currentTransition = action.payload;
+    },isDragging:(state,action)=>{
+      state.dragging=action.payload;
     },
+    dragMove:(state,action)=>{
+      state.drag=action.payload;
+    }
   },
 });
 
@@ -61,6 +68,8 @@ export const {
   initiateRef,
   changePage,
   transitionEventCurrent,
+  isDragging,
+  dragMove
 } = threeSlice.actions;
 
 export default threeSlice.reducer;

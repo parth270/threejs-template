@@ -207,7 +207,7 @@ const Rig = (props) => {
       }
     }
   }, [menu.rotation]);
-
+  let check1 = false;
   useFrame(() => {
     if (!menu.menuOpen) {
       ref.current.rotation.x = THREE.MathUtils.lerp(
@@ -220,8 +220,34 @@ const Rig = (props) => {
         (mouse.x * Math.PI) / 20,
         0.01
       );
+    }else{
+      if(menu.page===null){
+        if(menu.route==="Slider"){
+          if(menu.dragging){
+            console.log(menu.drag)
+            gsap.to(ref.current.rotation,{
+              z:0.0001*menu.drag.x,
+              duration:0.1
+            })
+            check1=false;
+            // ref.current.rotation.z = 0.1*menu.drag.x;
+            // ref.current.rotation.y = 0.1*menu.drag.x;
+          }else{
+            if(!check1){
+              gsap.to(ref.current.rotation,{
+                z:0,
+                duration:0.3
+              })
+              check1=true;
+            }
+          }
+        }
+      }
     }
+
   });
+
+
 
   return (
     <>

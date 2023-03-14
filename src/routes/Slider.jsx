@@ -37,7 +37,12 @@ const Slider = () => {
     }
   });
 
-  return <></>;
+  const dragStart=(e)=>{
+    console.log(e,"checkkk");
+  }
+
+return<>
+</>
 };
 
 export default Slider;

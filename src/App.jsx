@@ -13,6 +13,7 @@ import {
 } from "./services/three";
 import dummy from "./shared/content";
 import useSound from "use-sound";
+import useDrag from "./components/dragging/Drag";
 const pages = [
   {
     id: 0,
@@ -130,9 +131,18 @@ const App = (props) => {
   //   }
   // },[state.currentTransition]);
 
+  const {up:mouseUp,down:mouseDown,move:mouseMove} =useDrag();
+  console.log(state.dragging)
   return (
     <>
-      <div className="w-[100%] flex flex-col min-h-[100vh]  absolute top-0 z-2000">
+      <div className="w-[100%] flex flex-col min-h-[100vh]  absolute top-0 z-2000 cursor-grab "
+        onMouseUp={mouseUp}
+        onMouseDown={mouseDown}
+        onMouseMove={mouseMove}
+        style={{
+          cursor:state.route!=="Slider"?"initial":(state.dragging?"grabbing":"grab")
+        }}
+      >
         <div className="w-[100%] flex h-[100vh] p-[50px] ">
           <div className="w-[100%] ">
             <div className="w-[100%] mb-[-20px] opacity-[0.2] border-t-[1px] border-[#ccc] h-[20px]" />
