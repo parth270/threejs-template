@@ -2,7 +2,14 @@ import React, { useRef, useState } from "react";
 import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { changePage, setRoute, transitionEvent } from "../services/three";
+import {
+  changePage,
+  currentVid,
+  openMenu,
+  setRoute,
+  transitionEvent,
+  transitionEventCurrent,
+} from "../services/three";
 import classes from "../components/cross/index.module.css";
 import dummy from "../shared/content";
 import gsap, { Power4, SteppedEase } from "gsap";
@@ -120,10 +127,13 @@ const Pages = () => {
                 className={classes.container}
                 style={{}}
                 onClick={() => {
-                  dispatch(setRoute("Home"));
+                  dispatch(setRoute({ route: "Slider" }));
+                  dispatch(openMenu());
+                  dispatch(currentVid(Number(Path)-1));
+                  dispatch(transitionEventCurrent(true));
                   setClose(true);
                   setTimeout(() => {
-                    router("/");
+                    router("/Home");
                     dispatch(transitionEvent(false));
                     dispatch(changePage(null));
                   }, 1000);

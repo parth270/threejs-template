@@ -168,9 +168,9 @@ const Rig = (props) => {
       setCheck(true);
       if (check) {
         tl.to(camera.position, {
-          x: startingPos.x,
-          y: startingPos.y,
-          z: startingPos.z,
+          x: endPos.x,
+          y: endPos.y,
+          z: endPos.z,
           duration: 2,
           onUpdate: () => {
             const pro = 1 - tl.progress();
@@ -183,8 +183,8 @@ const Rig = (props) => {
           ease: Power4.easeInOut,
         });
         gsap.to(ref.current.rotation, {
-          x: 0,
-          y: 0,
+          x: -Math.PI / 18,
+          y: -(menu.current * (Math.PI / 4) + Math.PI / 8),
           z: 0,
           duration: 1,
           delay: 0.5,
