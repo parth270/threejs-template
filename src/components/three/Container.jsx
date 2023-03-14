@@ -1,6 +1,6 @@
 // import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 import Effects from "./effect/effect";
 import Ground from "./ground/ground";
@@ -15,6 +15,7 @@ import gsap, { Power4 } from "gsap";
 // import { useLocation } from "react-router-dom";
 import ImageContainer from "./thetaRing/imagesContainer";
 import { OrbitControls } from "@react-three/drei";
+import { currentVid, isDragging } from "../../services/three";
 const pages = [
   {
     id: 0,
@@ -193,7 +194,8 @@ const Rig = (props) => {
       }
     }
   }, [menu.page]);
-
+  const parentRef = useRef();
+  const mostParent = useRef();
   React.useEffect(() => {
     if (menu.route === "Slider") {
       if (paagess) {
@@ -207,7 +209,7 @@ const Rig = (props) => {
       }
     }
   }, [menu.rotation]);
-  let check1 = false;
+  const [check11, setCheck11] = useState();
   useFrame(() => {
     if (!menu.menuOpen) {
       ref.current.rotation.x = THREE.MathUtils.lerp(
@@ -220,38 +222,68 @@ const Rig = (props) => {
         (mouse.x * Math.PI) / 20,
         0.01
       );
-    }else{
-      if(menu.page===null){
-        if(menu.route==="Slider"){
-          if(menu.dragging){
-            console.log(menu.drag)
-            gsap.to(ref.current.rotation,{
-              z:0.0001*menu.drag.x,
-              duration:0.1
-            })
-            check1=false;
+    } else {
+      if (menu.page === null) {
+        if (menu.route === "Slider") {
+          if (menu.dragging) {
+            console.log(menu.drag);
+            // gsap.to(parentRef.current.rotation, {
+            //   z: 0.0001 * menu.drag.x,
+            //   duration: 0.1,
+            // });
+            gsap.to(mostParent.current.rotation, {
+              y: 0.01 * menu.drag.x,
+              duration: 0.3,
+            });
+            if (menu.drag.x > 20) {
+              if (menu.current === 0) {
+                dispatch(currentVid(7));
+                dispatch(isDragging(false));
+              } else {
+                dispatch(currentVid(menu.current - 1));
+                dispatch(isDragging(false));
+              }
+            } else if (menu.drag.x<-20) {
+              if (menu.current === 7) {
+                dispatch(currentVid(0));
+                dispatch(isDragging(false));
+              } else {
+                dispatch(currentVid(menu.current + 1));
+                dispatch(isDragging(false));
+              }
+            }
+            setCheck11(true);
             // ref.current.rotation.z = 0.1*menu.drag.x;
             // ref.current.rotation.y = 0.1*menu.drag.x;
-          }else{
-            if(!check1){
-              gsap.to(ref.current.rotation,{
-                z:0,
-                duration:0.3
-              })
-              check1=true;
+          } else {
+            if (check11) {
+              gsap.to(parentRef.current.rotation, {
+                z: 0,
+                duration: 0.6,
+                delay:0.3,
+                ease:Power4.easeInOut
+              });
+              gsap.to(mostParent.current.rotation, {
+                y: 0,
+                duration: 0.6,
+                delay:0.3,
+                ease:Power4.easeInOut
+              });
+              setCheck11(false);
             }
           }
         }
       }
     }
-
   });
-
-
 
   return (
     <>
-      <group {...props} ref={ref} />
+      <group ref={mostParent}>
+        <group ref={parentRef}>
+          <group {...props} ref={ref} />
+        </group>
+      </group>
       <color
         attach="background"
         // args={[pages[0].back]}

@@ -54,6 +54,12 @@ const Navigation = ({ route }) => {
     }
   }, [selected]);
 
+  React.useEffect(()=>{
+    if(state.current!==selected){
+      setSelected(state.current);
+    }
+  },[state.current]);
+
   return (
     <Tween
       from={{

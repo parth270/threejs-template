@@ -27,7 +27,7 @@ const mouseUp = (e) => {
   const mouseMove = (e) => {
     if (state.dragging) {
         console.log(drag.x,e.clientX,ref.current.x)
-      const x = drag.x-e.clientX 
+      const x = ((drag.x-e.clientX)*100/window.innerWidth);
       const y = -(e.clientY / window.innerHeight) * 2 + 1;
       console.log(x, y, "Moveeeeeeeeee");
     //   const X = drag.x - x;

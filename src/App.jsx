@@ -135,7 +135,7 @@ const App = (props) => {
   console.log(state.dragging)
   return (
     <>
-      <div className="w-[100%] flex flex-col min-h-[100vh]  absolute top-0 z-2000 cursor-grab "
+      <div className="w-[100%] flex flex-col min-h-[100vh]  absolute top-0 z-2000 cursor-grab select-none"
         onMouseUp={mouseUp}
         onMouseDown={mouseDown}
         onMouseMove={mouseMove}
