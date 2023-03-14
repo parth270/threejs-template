@@ -24,7 +24,7 @@ const Container = () => {
   }, [state.page]);
   return (
     <>
-      <group position={[0, 0, 0]} ref={ref} rotation={[0, (Math.PI * 0) / 2, 0]} >
+      <group position={state.page!==null?[0, 0, 0]:[0,0,-(state.current - 1) * 20]} ref={ref} rotation={[0, (Math.PI * 0) / 2, 0]} >
         <Images src={imgs[0].src} check={state.page !== null} pos={[0, 0, 0]} />
         <Images
           src={imgs[1].src}

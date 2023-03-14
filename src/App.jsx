@@ -1,5 +1,5 @@
 import gsap, { Power4 } from "gsap";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Tween } from "react-gsap";
 import { useDispatch, useSelector } from "react-redux";
 import Navigation from "./components/Navigation";
@@ -12,7 +12,7 @@ import {
   transitionEvent,
 } from "./services/three";
 import dummy from "./shared/content";
-
+import useSound from "use-sound";
 const pages = [
   {
     id: 0,
@@ -63,6 +63,18 @@ const App = (props) => {
   const [route1, setRoutes2] = React.useState("Home");
   const [intialWait, setInitialWait] = React.useState(false);
 
+  const soundUrl = "/aud/bg-song.mp3";
+
+  const [play, { stop,isPlaying }] = useSound(soundUrl, { volume: 0.5 });
+  const [playing, setPlaying] = useState(true);
+  React.useEffect(() => {
+    if(state.route==="Slider"){
+      play();
+    }else{
+      stop();
+    }
+  }, [state.route]);
+
   React.useEffect(() => {
     setTimeout(() => {
       setInitialWait(true);
@@ -90,7 +102,7 @@ const App = (props) => {
   const theme = {
     color: pages[state.current].theme,
   };
-  const title=useRef();
+  const title = useRef();
   // React.useEffect(()=>{
   //   if(state.currentTransition){
   //     gsap.to(title.current,{
@@ -142,8 +154,10 @@ const App = (props) => {
                   to={{
                     opacity:
                       state.route === "Slider"
-                        ? state.page ===null
-                          ? state.currentTransition?1:0
+                        ? state.page === null
+                          ? state.currentTransition
+                            ? 1
+                            : 0
                           : 0
                         : 0,
                     transform:
@@ -154,8 +168,11 @@ const App = (props) => {
                   duration={0.75}
                 >
                   <div className="mt-[140px]">
-                    <h1 className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]" ref={title} >
-                      {dummy[(state.current)].title}
+                    <h1
+                      className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]"
+                      ref={title}
+                    >
+                      {dummy[state.current].title}
                     </h1>
                     <div
                       className={`w-[180px] cursor-pointer duration-1000 flex items-center justify-between pt-[20px]  text-[16px] mt-[30px] border-t-[2px] `}
@@ -295,8 +312,17 @@ const App = (props) => {
         </div>
       </div>
       {state.route === "Home" && (
-        <p className="text-white text-[12px] font-medium tracking-[3px] fixed right-[30px] bottom-[30px] z-50">
-          <span className="text-[#b30030] font-bold ">PLAY</span> {">"} 0:57
+        <p
+          className="text-white text-[12px] font-medium tracking-[3px] fixed right-[30px] bottom-[30px] z-50 cursor-pointer"
+          onClick={() => {
+            setPlaying(!playing);
+          }}
+        >
+          <span className="text-[#b30030] font-bold ">
+            {!isPlaying ? "STOP" : "PLAYING"}
+          </span>{" "}
+          {">"}
+          {/* 0:57 */}
         </p>
       )}
       {route1 === "Slider" && (
