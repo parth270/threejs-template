@@ -15,7 +15,7 @@ const Cylinder = (props) => {
   const texture = useVideoTexture(`/video (${1}).mp4`);
   texture.name = `video-${1}`;
   texture.encoding = THREE.sRGBEncoding;
-  const color = useTexture("/test (1).jpg");
+  const color = useTexture(props.src);
   const state = useSelector((state) => state.three);
   const ref = useRef();
   const [opacity, setOpacity] = React.useState(0);
@@ -24,16 +24,16 @@ const Cylinder = (props) => {
   const three = useThree();
   React.useEffect(() => {
     const tl = gsap.timeline();
-    if (state.page !== null) {
+    if (props.check) {
         setCheck1(false);
         if(check1){
             tl.to(ref.current.position, {
                 y: 0,
-                duration: 0.75,
+                duration: 1.75,
                 delay: 0.75,
                 onUpdate: () => {
                     const pro = tl.progress();
-                    setOpacity(pro);
+                    ref.current.material.opacity = pro * 1;
                     // ref.current.lookAt(0, 1.125*pro, 5.5*pro)
                 },
                 ease: Power4.easeOut,
@@ -56,13 +56,13 @@ const Cylinder = (props) => {
         });
       }
     }
-  }, [state.page]);
+  }, [props.check]);
 
   return (
     <>
       <Suspense fallback={null}>
         <mesh
-          position={[0, 0.003, 0]}
+          position={props.pos}
           rotation={[0, (Math.PI * 1.28) / 2, 0]}
           geometry={geometry1}
           ref={ref}

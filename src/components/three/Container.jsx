@@ -1,4 +1,4 @@
-import { OrbitControls } from "@react-three/drei";
+// import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import React, { Suspense, useRef } from "react";
 import * as THREE from "three";
@@ -6,14 +6,15 @@ import Effects from "./effect/effect";
 import Ground from "./ground/ground";
 import Cylinder from "./thetaRing/outerRing";
 import Ring from "./thetaRing/ring";
-import Ring1 from "./thetaRing/Image";
+// import Ring1 from "./thetaRing/Image";
 import useMouse from "../../hooks/useMouse";
 import { useDispatch, useSelector } from "react-redux";
 import gsap, { Power4 } from "gsap";
-import { Clock } from "three";
-import { initiateRef } from "../../services/three";
-import { useLocation } from "react-router-dom";
-
+// import { Clock } from "three";
+// import { initiateRef } from "../../services/three";
+// import { useLocation } from "react-router-dom";
+import ImageContainer from "./thetaRing/imagesContainer";
+import { OrbitControls } from "@react-three/drei";
 const pages = [
   {
     id: 0,
@@ -101,8 +102,7 @@ const Rig = (props) => {
       });
     } else if (menu.route === "Home") {
       if (starting) {
-        if(menu.page===null){
-
+        if (menu.page === null) {
           gsap.to(camera.position, {
             x: startingPos.x,
             y: startingPos.y,
@@ -136,7 +136,7 @@ const Rig = (props) => {
     const tl = gsap.timeline();
     if (menu.page !== null) {
       setPages(false);
-      if(paagess){
+      if (paagess) {
         tl.to(camera.position, {
           x: topPos.x,
           y: topPos.y,
@@ -156,13 +156,13 @@ const Rig = (props) => {
         });
         gsap.to(ref.current.rotation, {
           x: -Math.PI / 18,
-        y: -Math.PI / 8,
-        z:- Math.PI*0.8/8,
-        duration: 1,
-        delay: 0.5,
-        ease: Power4.easeInOut,
-      });
-    }
+          y: -Math.PI / 8,
+          z: (-Math.PI * 0.8) / 8,
+          duration: 1,
+          delay: 0.5,
+          ease: Power4.easeInOut,
+        });
+      }
     } else {
       setPages(true);
       setCheck(true);
@@ -196,7 +196,7 @@ const Rig = (props) => {
 
   React.useEffect(() => {
     if (menu.route === "Slider") {
-      if(paagess){
+      if (paagess) {
         gsap.to(ref.current.rotation, {
           x: -Math.PI / 18,
           y: menu.rotation,
@@ -237,7 +237,7 @@ const Rig = (props) => {
 };
 
 const Scene = () => {
-  const three=useThree();
+  const three = useThree();
 
   // React.useEffect(()=>{
   //   const horizontalFov=90;
@@ -257,15 +257,15 @@ const Scene = () => {
       />
       <Suspense fallback={null}>
         <Rig position={[-3, 0, -1]} rotation={[0, (Math.PI * 0.12) / 2, 0]}>
-          <Ring1 />
-          <Ring id={1} i={1} />
-          <Ring id={2} i={2} />
-          <Ring id={3} i={3} />
-          <Ring id={4} i={4} />
-          <Ring id={1} i={5} />
-          <Ring id={2} i={6} />
-          <Ring id={3} i={7} />
-          <Ring id={4} i={8} />
+          <ImageContainer />
+          <Ring id={1} i={1} src={"/Vids/INTRODUCTION.mp4"} />
+          <Ring id={2} i={2} src={"/Vids/HISTORY.mp4"} />
+          <Ring id={3} i={3} src={"/Vids/VALUEPROPOSITION.mp4"} />
+          <Ring id={4} i={4} src={"/Vids/CULTURE.mp4"} />
+          <Ring id={1} i={5} src={"/Vids/ONESTORE.mp4"} />
+          <Ring id={2} i={6} src={"/Vids/GROWING PAINS.mp4"} />
+          <Ring id={3} i={7} src={"/Vids/FINAL THOUGHTS.mp4"} />
+          <Ring id={4} i={8} src={"/Vids/NEXT CASE.mp4"} />
           <Cylinder />
           <Ground />
         </Rig>
@@ -284,7 +284,7 @@ const Container = () => {
   return (
     <div className="absolute w-[100%] h-[100vh]">
       <Canvas
-        camera={{ position: [0, 4, 21.5], fov:18 }}
+        camera={{ position: [0, 4, 21.5], fov: 18 }}
         dpr={devicePixelRatio}
         gl={{ antialias: false, powerPreference: "high-performance" }}
         onCreated={({ gl }) => {

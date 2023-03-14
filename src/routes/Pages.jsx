@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { changePage, setRoute } from "../services/three";
 import classes from "../components/cross/index.module.css";
-
+import dummy from "../shared/content";
 const Pages = () => {
   const router = useNavigate();
   const dispatch = useDispatch();
@@ -18,11 +18,17 @@ const Pages = () => {
     }
   });
 
+  // const Path = location.pathname[location.pathname.length - 1];
+  // const Path = 1
+  const Path = location.pathname[location.pathname.length - 1];
   React.useEffect(() => {
     const path = location.pathname[location.pathname.length - 1];
-    console.log(path)
-    if(path!==state.page){
-      router(`/Home/${state.page}`)
+
+    console.log(path);
+    if (state.page !== null) {
+      if (path !== state.page) {
+        router(`/Home/${state.page}`);
+      }
     }
   }, [state.page]);
 
@@ -43,8 +49,8 @@ const Pages = () => {
             x: -500,
           }}
           to={{
-            x: true? -500 : 200,
-            y:30
+            x: true ? -500 : 200,
+            y: 30,
           }}
           delay={close ? 0 : 0.5}
           duration={0.5}
@@ -57,8 +63,9 @@ const Pages = () => {
         </Tween>
         <div className="w-[50%] h-[400px]">
           <div className="flex justify-between items-center border-b-[2px] border-[#fff] pb-[15px]">
-            <h1 className="text-[40px] uppercase text-white ">HEADING</h1>
-
+            <h1 className="text-[40px] uppercase text-white ">
+              {dummy[Number(Path) - 1].title}
+            </h1>
             <div
               className={classes.container}
               onClick={() => {
@@ -82,38 +89,7 @@ const Pages = () => {
           </div>
           <div className="w-full h-[400px] p-[20px] mt-[30px] pr-[100px] overflow-y-auto scroll-bar-cool">
             <p className="text-white text-[16px] tracking-wider">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-              erat, sed diam voluptua. At vero eos et accusam et justo duo
-              dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-              sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-              amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-              invidunt ut labore et dolore magna aliquyam erat, sed diam
-              voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-              Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-              dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-              elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-              magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-              justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-              takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-              sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-              tempor invidunt ut labore et dolore magna aliquyam erat, sed Lorem
-              ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-              eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-              sed diam voluptua. At vero eos et accusam et justo duo dolores et
-              ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-              accusam et justo duo dolores et ea rebum. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-              erat, sed diam voluptua. At vero eos et accusam et justo duo
-              dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-              sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-              amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-              invidunt ut labore et dolore magna aliquyam erat, sed
+              {dummy[Number(Path) - 1].para}
             </p>
           </div>
         </div>

@@ -138,7 +138,7 @@ const App = (props) => {
                       }}
                     >
                       <p className="w-[140px] font-medium tracking-wider ">
-                        SDU Open Days
+                        Read More
                       </p>
                       <p>{">"}</p>
                     </div>
@@ -165,19 +165,12 @@ const App = (props) => {
                       more about us{" "}
                       <span className="text-[#b30030]">{">"}</span>
                     </h4>
-                    <p className="text-[13.5px] leading-[23px] mt-[40px] text-white tracking-wider ">
-                      Motley Crowd is a joint project from
-                      <span className="text-[#b30030] font-bold tracking-[1px]">
-                        {" "}
-                        Hello Monday, Dogstudio{" "}
-                      </span>
-                      and{" "}
-                      <span className="text-[#b30030] font-bold tracking-[1px]">
-                        Set Snail
-                      </span>
-                      , born from friendships and mutual interests for the
-                      fast-paced evolution of immersive events in the digital
-                      world.<span className="text-[#b30030] font-bold"> Contact us!</span>
+                    <p className="text-[13.5px] leading-[23px] mt-[10px] text-white tracking-wider ">
+                      At Harvard Business Publishing Education, we are
+                      passionate about excellence in management education. We
+                      partner with educators and students around the world to
+                      deliver best-in-class learning experiences that develop
+                      leaders who are ready for a changing world
                     </p>
                   </div>
                 </Tween>
@@ -199,10 +192,10 @@ const App = (props) => {
                   !watch ? 0.2 : 1
                 }] duration-300 border-[#ccc]
                 border-r-[1px] h-[20px]`}
-                //  border-l-[1px] 
+                //  border-l-[1px]
               />
               <div className="p-[20px] pt-[10px] h-[60px] mt-[0]  cursor-pointer ">
-                  {/* <div className="flex w-[100%] justify-between items-center ">
+                {/* <div className="flex w-[100%] justify-between items-center ">
                     <h1
                       className="text-white text-[14px] font-mono uppercase tracking-[3px] font-bold whitespace-nowrap"
                       onMouseEnter={() => {
@@ -235,7 +228,7 @@ const App = (props) => {
                     <h1 className="text-white text-[40px] mt-[140px] w-[80%] font-mono tracking-wider leading-[60px]">
                       {/* Motley Crowd imagines, explores and builds immersive
                       events for the digital age. */}
-                      Leadership, Culture, and Transition at lululemon  
+                      Leadership, Culture, and Transition at lululemon
                     </h1>
                     <div>
                       <Tween

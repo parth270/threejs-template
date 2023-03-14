@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initiateRef } from "../../../services/three";
 
 const Cylinder = (props) => {
-  const texture = useVideoTexture(`/video (${props.id}).mp4`);
+  const texture = useVideoTexture(props.src);
   texture.name = `video-${props.i}`;
   texture.encoding = THREE.sRGBEncoding;
   const totalRadius = 6.283185307179586;

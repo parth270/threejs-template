@@ -8,35 +8,35 @@ const Navigation = ({ route }) => {
 
   const titles = [
     {
-      title: "Page-1",
+      title: "introduction",
       id: 0,
     },
     {
-      title: "Page-2",
+      title: "history",
       id: 1,
     },
     {
-      title: "Page-3",
+      title: "value proposition",
       id: 2,
     },
     {
-      title: "Page-4",
+      title: "culture",
       id: 3,
     },
     {
-      title: "Page-5",
+      title: "one store",
       id: 4,
     },
     {
-      title: "Page-6",
+      title: "growing pains",
       id: 5,
     },
     {
-      title: "Page-7",
+      title: "final thoughts",
       id: 6,
     },
     {
-      title: "Page-8",
+      title: "next course",
       id: 7,
     },
   ];
