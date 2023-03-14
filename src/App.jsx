@@ -9,6 +9,7 @@ import {
   openMenu,
   setRoute,
 } from "./services/three";
+import dummy from "./shared/content";
 
 const pages = [
   {
@@ -125,7 +126,7 @@ const App = (props) => {
                 >
                   <div className="mt-[140px]">
                     <h1 className="text-white text-[32px] mt-[50px] w-[400px] leading-[50px] font-mono tracking-wider leading-[60px]">
-                      A Virtual Open Days event featuring12 academic islands
+                      {dummy[state.page===null?0:(state.page-1)].title}
                     </h1>
                     <div
                       className={`w-[180px] cursor-pointer duration-1000 flex items-center justify-between pt-[20px]  text-[16px] mt-[30px] border-t-[2px] `}
