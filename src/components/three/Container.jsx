@@ -243,7 +243,7 @@ const Rig = (props) => {
                 dispatch(currentVid(menu.current - 1));
                 dispatch(isDragging(false));
               }
-            } else if (menu.drag.x<-20) {
+            } else if (menu.drag.x < -20) {
               if (menu.current === 7) {
                 dispatch(currentVid(0));
                 dispatch(isDragging(false));
@@ -260,14 +260,14 @@ const Rig = (props) => {
               gsap.to(parentRef.current.rotation, {
                 z: 0,
                 duration: 0.6,
-                delay:0.3,
-                ease:Power4.easeInOut
+                delay: 0.3,
+                ease: Power4.easeInOut,
               });
               gsap.to(mostParent.current.rotation, {
                 y: 0,
                 duration: 0.6,
-                delay:0.3,
-                ease:Power4.easeInOut
+                delay: 0.3,
+                ease: Power4.easeInOut,
               });
               setCheck11(false);
             }
@@ -316,7 +316,6 @@ const Scene = () => {
       <Suspense fallback={null}>
         <Rig position={[-3, 0, -1]} rotation={[0, (Math.PI * 0.12) / 2, 0]}>
           <ImageContainer />
-          <Ring id={1} i={1} src={"/Vids/INTRODUCTION.mp4"} />
           <Ring id={2} i={2} src={"/Vids/HISTORY.mp4"} />
           <Ring id={3} i={3} src={"/Vids/VALUEPROPOSITION.mp4"} />
           <Ring id={4} i={4} src={"/Vids/CULTURE.mp4"} />
@@ -324,6 +323,7 @@ const Scene = () => {
           <Ring id={2} i={6} src={"/Vids/GROWING PAINS.mp4"} />
           <Ring id={3} i={7} src={"/Vids/FINAL THOUGHTS.mp4"} />
           <Ring id={4} i={8} src={"/Vids/NEXT CASE.mp4"} />
+          <Ring id={1} i={1} src={"/Vids/INTRODUCTION.mp4"} />
           <Cylinder />
           <Ground />
         </Rig>
